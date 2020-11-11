@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forms.UserControls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,27 @@ namespace Forms
         public FormMain()
         {
             InitializeComponent();
+        }
+
+        private void KreirajUC(UserControl userControl)
+        {
+            pnlGlavni.Controls.Clear();
+            userControl.Parent = pnlGlavni;
+            userControl.Dock = DockStyle.Fill;
+        }
+
+        private void unesiPacijentaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCUnosPacijenta());
+            
+
+        }
+
+
+
+        private void unesiPregledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCUnosPregleda());
         }
     }
 }

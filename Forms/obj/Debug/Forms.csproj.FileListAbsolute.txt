@@ -18,3 +18,4 @@ C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\BrokerDB.pdb
 C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.csproj.CopyComplete
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\ControllerB.dll
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\ControllerB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCUnosPacijenta.resources

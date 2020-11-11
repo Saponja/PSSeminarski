@@ -11,5 +11,10 @@ namespace Domain
         public int SifraBolnice { get; set; }
         public string Naziv { get; set; }
         public string Adresa { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Naziv}, {Adresa}";
+        }
     }
 }

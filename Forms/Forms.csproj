@@ -61,6 +61,18 @@
     <Compile Include="Helpers\UserControlHelpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\UCUnosPacijenta.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCUnosPacijenta.Designer.cs">
+      <DependentUpon>UCUnosPacijenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCUnosPregleda.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCUnosPregleda.Designer.cs">
+      <DependentUpon>UCUnosPregleda.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,6 +88,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\UCUnosPacijenta.resx">
+      <DependentUpon>UCUnosPacijenta.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
