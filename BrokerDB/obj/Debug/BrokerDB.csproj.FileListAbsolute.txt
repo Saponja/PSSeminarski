@@ -1,0 +1,9 @@
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\bin\Debug\BrokerDB.dll
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\bin\Debug\BrokerDB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\bin\Debug\Domain.dll
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\bin\Debug\Domain.pdb
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\obj\Debug\BrokerDB.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\obj\Debug\BrokerDB.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\obj\Debug\BrokerDB.csproj.CopyComplete
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\obj\Debug\BrokerDB.dll
+C:\Users\Admin\source\repos\PSSeminarski\BrokerDB\obj\Debug\BrokerDB.pdb

@@ -1,0 +1,13 @@
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\ControllerB.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\ControllerB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\Domain.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\Storage.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\BrokerDB.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\Domain.pdb
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\Storage.pdb
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\BrokerDB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.csproj.CopyComplete
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.pdb

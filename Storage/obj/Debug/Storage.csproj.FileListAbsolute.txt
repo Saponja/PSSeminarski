@@ -1,0 +1,11 @@
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\Storage.dll
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\Storage.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\BrokerDB.dll
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\Domain.dll
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\BrokerDB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Storage\bin\Debug\Domain.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Storage\obj\Debug\Storage.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\PSSeminarski\Storage\obj\Debug\Storage.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\PSSeminarski\Storage\obj\Debug\Storage.csproj.CopyComplete
+C:\Users\Admin\source\repos\PSSeminarski\Storage\obj\Debug\Storage.dll
+C:\Users\Admin\source\repos\PSSeminarski\Storage\obj\Debug\Storage.pdb
