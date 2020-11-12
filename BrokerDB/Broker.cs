@@ -68,6 +68,43 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
         }
 
+        public List<Pacijent> GetAllPacijenti()
+        {
+            List<Pacijent> pacijenti = new List<Pacijent>();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select * from Pacijenti inner join Bolnice on(Pacijenti.SifraBolnice = Bolnice.Id)";
+            SqlDataReader reader = command.ExecuteReader();
+            
+            while (reader.Read())
+            {
+                bool hitan = false;
+                if ((int)reader["Hitan"] == 1)
+                {
+                    hitan = true;
+                }
+                Bolnica bolnica = new Bolnica()
+                {
+                    SifraBolnice = (int)reader["SifraBolnice"],
+                    Naziv = (string)reader["Naziv"],
+                    Adresa = (string)reader["Adresa"]
+
+                };
+                pacijenti.Add(new Pacijent()
+                {
+                    PacijentID = (int)reader["Id"],
+                    Ime = (string)reader["Ime"],
+                    Prezime = (string)reader["Prezime"],
+                    DaumRodjenja = (DateTime)reader["DatumRodjenja"],
+                    Hitan = hitan,
+                    Anamneza = (string)reader["Anamneza"],
+                    Bolnica = bolnica
+                }) ; 
+            }
+            reader.Close();
+            return pacijenti;
+
+        }
+
         public void SavePacijent(Pacijent pacijent)
         {
             int hitan = 0;
@@ -98,6 +135,26 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
             return ((int)result + 1);
 
+        }
+
+        public Bolnica vratiBolnicu(int id)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select * from Bolnice where Id = {id}";
+            SqlDataReader reader = command.ExecuteReader();
+
+            if(reader.Read())
+            {
+                reader.Close();
+                return new Bolnica()
+                {
+                    SifraBolnice = (int)reader["Id"],
+                    Naziv = (string)reader["Naziv"],
+                    Adresa = (string)reader["Adresa"]
+                };
+            }
+            reader.Close();
+            return null;
         }
 
     }

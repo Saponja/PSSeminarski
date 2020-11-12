@@ -19,3 +19,4 @@ C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.csproj.CopyComple
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\ControllerB.dll
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\ControllerB.pdb
 C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCUnosPacijenta.resources
+C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCPrikazPacijenata.resources

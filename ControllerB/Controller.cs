@@ -58,6 +58,11 @@ namespace ControllerB
             storagePacijent.Save(pacijent);
         }
 
+        public List<Pacijent> PrikaziPacijente()
+        {
+            return storagePacijent.GetAll();
+        }
+
 
         
     }

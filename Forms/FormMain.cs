@@ -38,5 +38,10 @@ namespace Forms
         {
             KreirajUC(new UCUnosPregleda());
         }
+
+        private void pacijentiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCPrikazPacijenata());
+        }
     }
 }

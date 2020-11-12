@@ -19,7 +19,17 @@ namespace Storage.Implementation
 
         public List<Pacijent> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                broker.OpenConnection();
+                return broker.GetAllPacijenti();
+
+            }
+            finally
+            {
+
+                broker.CloseConnection();
+            }
         }
 
         public void Save(Pacijent pacijent)
