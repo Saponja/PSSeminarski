@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="Implementation\StorageBolnice.cs" />
     <Compile Include="Implementation\StorageKorisnik.cs" />
+    <Compile Include="Implementation\StorageLekari.cs" />
     <Compile Include="Implementation\StoragePacijent.cs" />
     <Compile Include="IStorageBolnice.cs" />
     <Compile Include="IStorageKorisnici.cs" />
+    <Compile Include="IStorageLekari.cs" />
     <Compile Include="IStoragePacijent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

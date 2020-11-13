@@ -16,6 +16,7 @@ namespace ControllerB
     {
         private IStorageKorisnici storageKorisnici;
         private IStoragePacijent storagePacijent;
+        private IStorageLekari storageLekari;
         public Korisnik LoggedInKorisnik { get; set; }
 
         private static Controller controller;
@@ -36,6 +37,8 @@ namespace ControllerB
         {
             storageKorisnici = new StorageKorisnik();
             storagePacijent = new StoragePacijent();
+            storageLekari = new StorageLekari();
+            
         }
 
         public Korisnik Prijava(string username, string password)
@@ -67,6 +70,11 @@ namespace ControllerB
         public void DeletePacijent(Pacijent pacijent)
         {
             storagePacijent.Delete(pacijent);
+        }
+
+        public List<Lekar> PrikaziLekare()
+        {
+            return storageLekari.GetAll();
         }
 
 

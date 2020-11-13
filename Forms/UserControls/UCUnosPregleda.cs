@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ControllerB;
 
 namespace Forms.UserControls
 {
@@ -15,6 +16,9 @@ namespace Forms.UserControls
         public UCUnosPregleda()
         {
             InitializeComponent();
+            dgvLekari.DataSource = Controller.Instance.PrikaziLekare();
+            
         }
+
     }
 }

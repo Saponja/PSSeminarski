@@ -168,5 +168,35 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
         }
 
+        public List<Lekar> GetAllLekari()
+        {
+            List<Lekar> lekari = new List<Lekar>();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText =  $"select* from Lekari inner join Bolnice on(Lekari.SifraBolnice = Bolnice.Id)";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Bolnica bolnica = new Bolnica()
+                {
+                    SifraBolnice = (int)reader["SifraBolnice"],
+                    Naziv = (string)reader["Naziv"],
+                    Adresa = (string)reader["Adresa"]
+
+                };
+                lekari.Add(new Lekar()
+                {
+                    LekarID = (int)reader["Id"],
+                    Ime = (string)reader["Ime"],
+                    Prezime = (string)reader["Prezime"],
+                    Specijalizacija = (string)reader["Specijalizacija"],
+                    Bolnica = bolnica
+                    
+                });
+            }
+            reader.Close();
+            return lekari;
+
+        }
+
     }
 }
