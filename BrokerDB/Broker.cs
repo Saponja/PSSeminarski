@@ -157,5 +157,16 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             return null;
         }
 
+        public void DeletePacijent(Pacijent pacijent)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"delete from Pacijenti where Id = {pacijent.PacijentID}";
+            if(command.ExecuteNonQuery() != 1)
+            {
+                throw new Exception("Ne moze da obrise pacijenta");
+            }
+
+        }
+
     }
 }

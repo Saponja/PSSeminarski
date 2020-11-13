@@ -44,7 +44,15 @@ namespace Forms.UserControls
                 Bolnica = (Bolnica)cbBolnica.SelectedItem
             };
 
-            Controller.Instance.SacuvajPacijenta(pacijent);
+            try
+            {
+                Controller.Instance.SacuvajPacijenta(pacijent);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
   
         }

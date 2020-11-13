@@ -13,5 +13,7 @@ namespace Storage
 
         void Save(Pacijent pacijent);
 
+        void Delete(Pacijent pacijent);
+
     }
 }

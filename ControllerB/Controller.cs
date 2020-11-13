@@ -63,6 +63,11 @@ namespace ControllerB
             return storagePacijent.GetAll();
         }
 
+        public void DeletePacijent(Pacijent pacijent)
+        {
+            storagePacijent.Delete(pacijent);
+        }
+
 
         
     }

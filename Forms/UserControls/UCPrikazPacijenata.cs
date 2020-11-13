@@ -8,18 +8,93 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ControllerB;
+using Domain;
 
 namespace Forms.UserControls
 {
     public partial class UCPrikazPacijenata : UserControl
     {
+        private static List<Pacijent> osnovnaLista = Controller.Instance.PrikaziPacijente();
+        private static List<Pacijent> listaKojaSeMenja = osnovnaLista;
         public UCPrikazPacijenata()
         {
             InitializeComponent();
             dgvPacijenti.DataSource = Controller.Instance.PrikaziPacijente();
         }
 
+        public UCPrikazPacijenata(List<Pacijent> lista)
+        {
+            InitializeComponent();
+            dgvPacijenti.DataSource = lista;
+        }
 
+        private void btnPretrazi_Click(object sender, EventArgs e)
+        {
+            listaKojaSeMenja = (List<Pacijent>)dgvPacijenti.DataSource;
+
+            if (!string.IsNullOrWhiteSpace(txtId.Text) && Int32.TryParse(txtId.Text, out int id))
+            {
+                listaKojaSeMenja = listaKojaSeMenja.Where(p => p.PacijentID == id).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(txtBolnica.Text))
+            {
+                listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Bolnica.Naziv == txtBolnica.Text).ToList();
+            }
+
+            if (rbDa.Checked)
+            {
+                listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Hitan == true).ToList();
+            }
+
+            if (rbNe.Checked)
+            {
+                listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Hitan == false).ToList();
+            }
+
+            KreirajUC(listaKojaSeMenja);
+
+        }
+
+        private void btnResetuj_Click(object sender, EventArgs e)
+        {
+            KreirajUC(osnovnaLista);
+        }
+
+        private void KreirajUC(List<Pacijent> lista)
+        {
+            this.Controls.Clear();
+            UCPrikazPacijenata ucPrikaz = new UCPrikazPacijenata(lista);
+            ucPrikaz.Parent = this;
+            ucPrikaz.Dock = DockStyle.Fill;
+        }
+
+        private void btnObrisi_Click(object sender, EventArgs e)
+        {
+            
+            List<int> listaZaBrisanje = new List<int>();
+            listaKojaSeMenja = (List<Pacijent>)dgvPacijenti.DataSource;
+            osnovnaLista = Controller.Instance.PrikaziPacijente();
+            foreach (DataGridViewRow item in dgvPacijenti.SelectedRows)
+            {
+                int id = (int)item.Cells[0].Value;
+                listaZaBrisanje.Add(id);    
+            }
+
+            foreach(int i in listaZaBrisanje)
+            {
+                //brojaci??? 
+                Pacijent pacijent = osnovnaLista.Find(p => p.PacijentID == i);
+                Controller.Instance.DeletePacijent(pacijent);
+                listaKojaSeMenja.Remove(pacijent);
+                //osnovnaLista.Remove(pacijent);
+            }
+            osnovnaLista = Controller.Instance.PrikaziPacijente();
+
+            KreirajUC(osnovnaLista);
+
+
+        }
 
     }
 }
