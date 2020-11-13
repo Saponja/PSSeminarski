@@ -1,4 +1,5 @@
-﻿using Forms.UserControls;
+﻿using ControllerB;
+using Forms.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,6 @@ namespace Forms
         private void unesiPacijentaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KreirajUC(new UCUnosPacijenta());
-            
-
         }
 
 
@@ -37,11 +36,13 @@ namespace Forms
         private void unesiPregledToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KreirajUC(new UCUnosPregleda());
+ 
         }
 
         private void pacijentiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KreirajUC(new UCPrikazPacijenata());
+
         }
     }
 }

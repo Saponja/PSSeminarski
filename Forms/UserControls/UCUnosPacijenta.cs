@@ -47,14 +47,34 @@ namespace Forms.UserControls
             try
             {
                 Controller.Instance.SacuvajPacijenta(pacijent);
+                MessageBox.Show("Pacijent je uspesno sacuvan!");
+                
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            
+            DialogResult result = MessageBox.Show("", "Da li zelite da uneste jos pacijenata?", MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes)
+            {
+                KreirajUC(new UCUnosPacijenta());
+            }
+            else if(result == DialogResult.No)
+            {
+                this.Visible = false;
+            }
             
 
-  
+        }
+
+
+        private void KreirajUC(UserControl userControl)
+        {
+            this.Controls.Clear();
+            userControl.Parent = this;
+            userControl.Dock = DockStyle.Fill;
         }
     }
 }

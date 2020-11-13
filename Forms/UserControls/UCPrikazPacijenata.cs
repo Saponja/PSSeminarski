@@ -71,29 +71,48 @@ namespace Forms.UserControls
 
         private void btnObrisi_Click(object sender, EventArgs e)
         {
-            
-            List<int> listaZaBrisanje = new List<int>();
-            listaKojaSeMenja = (List<Pacijent>)dgvPacijenti.DataSource;
-            osnovnaLista = Controller.Instance.PrikaziPacijente();
-            foreach (DataGridViewRow item in dgvPacijenti.SelectedRows)
+            DialogResult result = MessageBox.Show("", "Da li ste sigurni da hocete da izbriste pacijente?", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                int id = (int)item.Cells[0].Value;
-                listaZaBrisanje.Add(id);    
+                List<int> listaZaBrisanje = new List<int>();
+                listaKojaSeMenja = (List<Pacijent>)dgvPacijenti.DataSource;
+                osnovnaLista = Controller.Instance.PrikaziPacijente();
+                foreach (DataGridViewRow item in dgvPacijenti.SelectedRows)
+                {
+                    int id = (int)item.Cells[0].Value;
+                    listaZaBrisanje.Add(id);
+                }
+                int brojac = 0;
+                foreach (int i in listaZaBrisanje)
+                {
+                    //brojaci??? 
+                    Pacijent pacijent = osnovnaLista.Find(p => p.PacijentID == i);
+                    if (listaKojaSeMenja.Contains(pacijent))
+                    {
+                        brojac = brojac + 1;
+                        listaKojaSeMenja.Remove(pacijent);
+                    }
+                    Controller.Instance.DeletePacijent(pacijent);
+                    //osnovnaLista.Remove(pacijent);
+                }
+                osnovnaLista = Controller.Instance.PrikaziPacijente();
+
+                if (brojac == listaZaBrisanje.Count)
+                {
+                    KreirajUC(listaKojaSeMenja);
+                }
+                else
+                {
+                    KreirajUC(osnovnaLista);
+                }
+
+            }
+            else if (result == DialogResult.No)
+            {
+                
             }
 
-            foreach(int i in listaZaBrisanje)
-            {
-                //brojaci??? 
-                Pacijent pacijent = osnovnaLista.Find(p => p.PacijentID == i);
-                Controller.Instance.DeletePacijent(pacijent);
-                listaKojaSeMenja.Remove(pacijent);
-                //osnovnaLista.Remove(pacijent);
-            }
-            osnovnaLista = Controller.Instance.PrikaziPacijente();
-
-            KreirajUC(osnovnaLista);
-
-
+           
         }
 
     }

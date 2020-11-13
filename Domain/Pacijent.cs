@@ -16,6 +16,15 @@ namespace Domain
         public string Anamneza { get; set; }
         public Bolnica Bolnica { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            Pacijent p = obj as Pacijent;
+            if(p.PacijentID == PacijentID)
+            {
+                return true;
+            }
+            return false;
+        }
 
 
     }
