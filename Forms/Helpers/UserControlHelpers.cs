@@ -23,5 +23,12 @@ namespace Forms.Helpers
                 return false;
             }
         }
+
+        public static void KreirajUC(UserControl userControl, UserControl thisUC)
+        {
+            thisUC.Controls.Clear();
+            userControl.Parent = thisUC;
+            userControl.Dock = DockStyle.Fill;
+        }
     }
 }

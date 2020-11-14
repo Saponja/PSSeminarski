@@ -11,6 +11,7 @@ using Storage;
 using Storage.Implementation;
 using Domain;
 using ControllerB;
+using Forms.Helpers;
 
 namespace Forms.UserControls
 {
@@ -59,7 +60,7 @@ namespace Forms.UserControls
             DialogResult result = MessageBox.Show("", "Da li zelite da uneste jos pacijenata?", MessageBoxButtons.YesNo);
             if(result == DialogResult.Yes)
             {
-                KreirajUC(new UCUnosPacijenta());
+                UserControlHelpers.KreirajUC(new UCUnosPacijenta(), this);
             }
             else if(result == DialogResult.No)
             {
@@ -69,12 +70,5 @@ namespace Forms.UserControls
 
         }
 
-
-        private void KreirajUC(UserControl userControl)
-        {
-            this.Controls.Clear();
-            userControl.Parent = this;
-            userControl.Dock = DockStyle.Fill;
-        }
     }
 }

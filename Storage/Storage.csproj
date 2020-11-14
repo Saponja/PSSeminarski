@@ -45,10 +45,12 @@
     <Compile Include="Implementation\StorageKorisnik.cs" />
     <Compile Include="Implementation\StorageLekari.cs" />
     <Compile Include="Implementation\StoragePacijent.cs" />
+    <Compile Include="Implementation\StorageVrstaPregleda.cs" />
     <Compile Include="IStorageBolnice.cs" />
     <Compile Include="IStorageKorisnici.cs" />
     <Compile Include="IStorageLekari.cs" />
     <Compile Include="IStoragePacijent.cs" />
+    <Compile Include="IStorageVrstaPregleda.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

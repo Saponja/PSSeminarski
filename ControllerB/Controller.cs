@@ -17,6 +17,7 @@ namespace ControllerB
         private IStorageKorisnici storageKorisnici;
         private IStoragePacijent storagePacijent;
         private IStorageLekari storageLekari;
+        private IStorageVrstaPregleda storageVrstaPregleda;
         public Korisnik LoggedInKorisnik { get; set; }
 
         private static Controller controller;
@@ -38,6 +39,7 @@ namespace ControllerB
             storageKorisnici = new StorageKorisnik();
             storagePacijent = new StoragePacijent();
             storageLekari = new StorageLekari();
+            storageVrstaPregleda = new StorageVrstaPregleda();
             
         }
 
@@ -75,6 +77,11 @@ namespace ControllerB
         public List<Lekar> PrikaziLekare()
         {
             return storageLekari.GetAll();
+        }
+
+        public void SacuvajVrstuPregleda(VrstaPregleda pregled)
+        {
+            storageVrstaPregleda.Save(pregled);
         }
 
 

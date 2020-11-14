@@ -113,7 +113,7 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                 hitan = 1;
             }
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"insert into Pacijenti values ({VratiIndeksPacijenta()}, '{pacijent.Ime}', '{pacijent.Prezime}', '{pacijent.DaumRodjenja}', {hitan},'{pacijent.Anamneza}', {pacijent.Bolnica.SifraBolnice})";
+            command.CommandText = $"insert into Pacijenti values ({VratiIndeks("Pacijenti")}, '{pacijent.Ime}', '{pacijent.Prezime}', '{pacijent.DaumRodjenja}', {hitan},'{pacijent.Anamneza}', {pacijent.Bolnica.SifraBolnice})";
             if(command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Pogresan unos pacijenta");
@@ -122,11 +122,11 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
         }
 
-        public int VratiIndeksPacijenta()
+        public int VratiIndeks(string tabela)
         {
             List<Bolnica> bolnice = new List<Bolnica>();
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = "select max(Id) from Pacijenti";
+            command.CommandText = $"select max(Id) from {tabela}";
             object result = command.ExecuteScalar();
             if (result is DBNull)
             {
@@ -195,6 +195,17 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             }
             reader.Close();
             return lekari;
+
+        }
+
+        public void SaveVrstaPregleda(VrstaPregleda pregled)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"Insert into VrstaPregleda values ({VratiIndeks("VrstaPregleda")}, '{pregled.Naziv}', '{pregled.Oblast}', {pregled.Lekar.LekarID})";
+            if(command.ExecuteNonQuery() != 1)
+            {
+                throw new Exception("Pogresno unet predmet");
+            }
 
         }
 
