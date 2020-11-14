@@ -209,5 +209,41 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
         }
 
+        public List<VrstaPregleda> GetAllVrstaPregleda()
+        {
+            List<VrstaPregleda> pregledi = new List<VrstaPregleda>();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select * from VrstaPregleda inner join Lekari on(VrstaPregleda.LekarId = Lekari.Id) inner join Bolnice on(Lekari.SifraBolnice = Bolnice.Id)";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                VrstaPregleda pregled = new VrstaPregleda()
+                {
+                    PregledID = (int)reader[0],
+                    Naziv = (string)reader[1],
+                    Oblast = (string)reader[2],
+                    Lekar = new Lekar()
+                    {
+                        LekarID = (int)reader[3],
+                        Ime = (string)reader[5],
+                        Prezime = (string)reader[6],
+                        Specijalizacija = (string)reader[7],
+                        Bolnica = new Bolnica()
+                        {
+                            SifraBolnice = (int)reader[8],
+                            Naziv = (string)reader[10],
+                            Adresa = (string)reader[11]
+                        }
+                    }
+                };
+                pregledi.Add(pregled);
+            }
+
+            return pregledi;
+
+
+
+        } 
+
     }
 }

@@ -70,7 +70,7 @@
             // pacijentiToolStripMenuItem
             // 
             this.pacijentiToolStripMenuItem.Name = "pacijentiToolStripMenuItem";
-            this.pacijentiToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pacijentiToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
             this.pacijentiToolStripMenuItem.Text = "Pacijenti";
             this.pacijentiToolStripMenuItem.Click += new System.EventHandler(this.pacijentiToolStripMenuItem_Click);
             // 
@@ -95,6 +95,7 @@
             this.preglediToolStripMenuItem.Name = "preglediToolStripMenuItem";
             this.preglediToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.preglediToolStripMenuItem.Text = "Pregledi";
+            this.preglediToolStripMenuItem.Click += new System.EventHandler(this.preglediToolStripMenuItem_Click);
             // 
             // pnlGlavni
             // 

@@ -19,7 +19,15 @@ namespace Storage.Implementation
         }
         public List<VrstaPregleda> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                broker.OpenConnection();
+                return broker.GetAllVrstaPregleda();
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
         }
 
         public void Save(VrstaPregleda pregled)

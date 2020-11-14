@@ -84,6 +84,11 @@ namespace ControllerB
             storageVrstaPregleda.Save(pregled);
         }
 
+        public List<VrstaPregleda> prikaziPreglede()
+        {
+            return storageVrstaPregleda.GetAll();
+        }
+
 
 
         

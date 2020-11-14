@@ -14,5 +14,10 @@ namespace Domain
         public string Specijalizacija { get; set; }
         public Bolnica Bolnica { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Ime} {Prezime}";
+        }
+
     }
 }
