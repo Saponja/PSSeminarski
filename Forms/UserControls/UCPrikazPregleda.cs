@@ -50,5 +50,10 @@ namespace Forms.UserControls
             ucPrikaz.Parent = this;
             ucPrikaz.Dock = DockStyle.Fill;
         }
+
+        private void btnResetuj_Click(object sender, EventArgs e)
+        {
+            KreirajUC(Controller.Instance.prikaziPreglede());
+        }
     }
 }

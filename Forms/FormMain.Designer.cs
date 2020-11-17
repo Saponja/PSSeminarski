@@ -36,6 +36,7 @@
             this.unesiPregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preglediToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlGlavni = new System.Windows.Forms.Panel();
+            this.zakaziPregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +45,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pacijentToolStripMenuItem,
-            this.pregledToolStripMenuItem});
+            this.pregledToolStripMenuItem,
+            this.zakaziPregledToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(839, 28);
@@ -86,14 +88,14 @@
             // unesiPregledToolStripMenuItem
             // 
             this.unesiPregledToolStripMenuItem.Name = "unesiPregledToolStripMenuItem";
-            this.unesiPregledToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.unesiPregledToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.unesiPregledToolStripMenuItem.Text = "Unesi pregled";
             this.unesiPregledToolStripMenuItem.Click += new System.EventHandler(this.unesiPregledToolStripMenuItem_Click);
             // 
             // preglediToolStripMenuItem
             // 
             this.preglediToolStripMenuItem.Name = "preglediToolStripMenuItem";
-            this.preglediToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.preglediToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.preglediToolStripMenuItem.Text = "Pregledi";
             this.preglediToolStripMenuItem.Click += new System.EventHandler(this.preglediToolStripMenuItem_Click);
             // 
@@ -103,6 +105,13 @@
             this.pnlGlavni.Name = "pnlGlavni";
             this.pnlGlavni.Size = new System.Drawing.Size(839, 472);
             this.pnlGlavni.TabIndex = 1;
+            // 
+            // zakaziPregledToolStripMenuItem
+            // 
+            this.zakaziPregledToolStripMenuItem.Name = "zakaziPregledToolStripMenuItem";
+            this.zakaziPregledToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.zakaziPregledToolStripMenuItem.Text = "Zakazi pregled";
+            this.zakaziPregledToolStripMenuItem.Click += new System.EventHandler(this.zakaziPregledToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -131,5 +140,6 @@
         private System.Windows.Forms.ToolStripMenuItem unesiPregledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preglediToolStripMenuItem;
         private System.Windows.Forms.Panel pnlGlavni;
+        private System.Windows.Forms.ToolStripMenuItem zakaziPregledToolStripMenuItem;
     }
 }

@@ -49,5 +49,10 @@ namespace Forms
         {
             KreirajUC(new UCPrikazPregleda());
         }
+
+        private void zakaziPregledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCZakazivanjePregleda());
+        }
     }
 }

@@ -58,7 +58,7 @@ namespace Forms.UserControls
 
         private void btnResetuj_Click(object sender, EventArgs e)
         {
-            KreirajUC(osnovnaLista);
+            KreirajUC(Controller.Instance.PrikaziPacijente());
         }
 
         private void KreirajUC(List<Pacijent> lista)

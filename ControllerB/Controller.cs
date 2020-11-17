@@ -18,6 +18,7 @@ namespace ControllerB
         private IStoragePacijent storagePacijent;
         private IStorageLekari storageLekari;
         private IStorageVrstaPregleda storageVrstaPregleda;
+        private IStorageTermin storageTermin;
         public Korisnik LoggedInKorisnik { get; set; }
 
         private static Controller controller;
@@ -40,6 +41,7 @@ namespace ControllerB
             storagePacijent = new StoragePacijent();
             storageLekari = new StorageLekari();
             storageVrstaPregleda = new StorageVrstaPregleda();
+            storageTermin = new StorageTermin();
             
         }
 
@@ -57,6 +59,11 @@ namespace ControllerB
             }
 
             throw new Exception("Korisnik sa datim username-om ili password-om ne postoji");
+        }
+
+        public void SacuvajTermin(Termin termin)
+        {
+            storageTermin.Save(termin);
         }
 
         public void SacuvajPacijenta(Pacijent pacijent)

@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtLekar = new System.Windows.Forms.TextBox();
             this.txtOblast = new System.Windows.Forms.TextBox();
+            this.btnResetuj = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPregledi)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,10 +91,21 @@
             this.txtOblast.Size = new System.Drawing.Size(169, 22);
             this.txtOblast.TabIndex = 5;
             // 
+            // btnResetuj
+            // 
+            this.btnResetuj.Location = new System.Drawing.Point(674, 92);
+            this.btnResetuj.Name = "btnResetuj";
+            this.btnResetuj.Size = new System.Drawing.Size(75, 23);
+            this.btnResetuj.TabIndex = 6;
+            this.btnResetuj.Text = "Resetuj";
+            this.btnResetuj.UseVisualStyleBackColor = true;
+            this.btnResetuj.Click += new System.EventHandler(this.btnResetuj_Click);
+            // 
             // UCPrikazPregleda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnResetuj);
             this.Controls.Add(this.txtOblast);
             this.Controls.Add(this.txtLekar);
             this.Controls.Add(this.label2);
@@ -116,5 +128,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtLekar;
         private System.Windows.Forms.TextBox txtOblast;
+        private System.Windows.Forms.Button btnResetuj;
     }
 }

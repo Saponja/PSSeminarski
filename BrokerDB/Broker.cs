@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Domain;
+using System.Data;
 
 namespace BrokerDB
 {
@@ -113,7 +114,17 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                 hitan = 1;
             }
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"insert into Pacijenti values ({VratiIndeks("Pacijenti")}, '{pacijent.Ime}', '{pacijent.Prezime}', '{pacijent.DaumRodjenja}', {hitan},'{pacijent.Anamneza}', {pacijent.Bolnica.SifraBolnice})";
+            //command.CommandText = $"insert into Pacijenti values ({VratiIndeks("Pacijenti")}, '{pacijent.Ime}', '{pacijent.Prezime}', '{pacijent.DaumRodjenja}', {hitan},'{pacijent.Anamneza}', {pacijent.Bolnica.SifraBolnice})";
+            command.Parameters.AddWithValue("@Id", VratiIndeks("Pacijenti"));
+            command.Parameters.AddWithValue("@Ime", pacijent.Ime);
+            command.Parameters.AddWithValue("@Prezime", pacijent.Prezime);
+            command.Parameters.AddWithValue("@DatumRodjenja", pacijent.DaumRodjenja);
+            command.Parameters.AddWithValue("@Hitan", hitan);
+            command.Parameters.AddWithValue("@Anamneza", pacijent.Anamneza);
+            command.Parameters.AddWithValue("@Bolnica", pacijent.Bolnica.SifraBolnice);
+            command.CommandText = $"insert into Pacijenti values (@Id ,@Ime, @Prezime, @DatumRodjenja, @Hitan, @Anamneza, @Bolnica)";
+
+
             if(command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Pogresan unos pacijenta");
@@ -201,8 +212,14 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
         public void SaveVrstaPregleda(VrstaPregleda pregled)
         {
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"Insert into VrstaPregleda values ({VratiIndeks("VrstaPregleda")}, '{pregled.Naziv}', '{pregled.Oblast}', {pregled.Lekar.LekarID})";
-            if(command.ExecuteNonQuery() != 1)
+            //command.CommandText = $"Insert into VrstaPregleda values ({VratiIndeks("VrstaPregleda")}, '{pregled.Naziv}', '{pregled.Oblast}', {pregled.Lekar.LekarID})";
+            command.Parameters.AddWithValue("@Id", VratiIndeks("VrstaPregleda"));
+            command.Parameters.AddWithValue("@Naziv", pregled.Naziv); 
+            command.Parameters.AddWithValue("@Oblast", pregled.Oblast);
+            command.Parameters.AddWithValue("@Lekar", pregled.Lekar.LekarID);
+            command.CommandText = $"Insert into VrstaPregleda values(@Id, @Naziv, @Oblast, @Lekar)";
+
+            if (command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Pogresno unet predmet");
             }
@@ -244,6 +261,23 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
 
         } 
+
+        public void SaveTermin(Termin termin)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Parameters.AddWithValue("@PacijentId", termin.Pacijent.PacijentID);
+            command.Parameters.AddWithValue("PregledId", termin.VrstaPregleda.PregledID);
+            //command.Parameters.Add("@Datum", SqlDbType.DateTime2);
+            //command.Parameters.Add("@Datum");
+            command.Parameters.AddWithValue("@Datum", termin.DateTime);
+            command.Parameters.AddWithValue("@Cena", termin.Cena);
+            command.CommandText = $"insert into Termini values (@PacijentId, @PregledId, @Datum, @Cena)";
+
+            if(command.ExecuteNonQuery() != 1)
+            {
+                throw new Exception("Nije dobro unet termin");
+            }
+        }
 
     }
 }
