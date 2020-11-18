@@ -21,13 +21,22 @@ namespace Forms.UserControls
             InitializeComponent();
             dgvPacijent.DataSource = Controller.Instance.PrikaziPacijente();
             dgvPregled.DataSource = Controller.Instance.prikaziPreglede();
+            dgvTermini.DataSource = Controller.Instance.PrikaziTermine();
             cbLekar.DataSource = Controller.Instance.PrikaziLekare();
+            
         }
 
         private void btnZakazi_Click(object sender, EventArgs e)
         {
+            List<DateTime> termini = Controller.Instance.VratiVremeTermina();
             string datumString = txtDatum.Text + " " + txtVreme.Text;
             DateTime datum = Convert.ToDateTime(datumString);
+            if(termini.Any(t => t == datum))
+            {
+                MessageBox.Show("Termin je vec zauzet");
+                txtVreme.BackColor = Color.LightCoral;
+                txtDatum.BackColor = Color.LightCoral;
+            }
             Termin termin = new Termin()
             {
                 Pacijent = (Pacijent)dgvPacijent.SelectedRows[0].DataBoundItem,
@@ -39,6 +48,8 @@ namespace Forms.UserControls
             try
             {
                 Controller.Instance.SacuvajTermin(termin);
+                MessageBox.Show("Uspesno ste zakazali termin");
+                dgvTermini.DataSource = Controller.Instance.PrikaziTermine();
             }
             catch(Exception ex)
             {

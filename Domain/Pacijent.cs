@@ -19,11 +19,20 @@ namespace Domain
         public override bool Equals(object obj)
         {
             Pacijent p = obj as Pacijent;
+            if(p == null)
+            {
+                return false;
+            }
             if(p.PacijentID == PacijentID)
             {
                 return true;
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            return $"{Ime} {Prezime}";
         }
 
 

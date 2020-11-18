@@ -12,5 +12,10 @@ namespace Domain
         public string Naziv { get; set; }
         public string Oblast { get; set; }
         public Lekar Lekar { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Naziv}";
+        }
     }
 }

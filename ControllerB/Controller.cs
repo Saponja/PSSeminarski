@@ -96,6 +96,16 @@ namespace ControllerB
             return storageVrstaPregleda.GetAll();
         }
 
+        public List<DateTime> VratiVremeTermina()
+        {
+            return storageTermin.GetVremeTermina();
+        }
+
+        public List<Termin> PrikaziTermine()
+        {
+            return storageTermin.GetAll();
+        }
+
 
 
         

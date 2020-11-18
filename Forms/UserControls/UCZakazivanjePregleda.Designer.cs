@@ -37,8 +37,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtDatum = new System.Windows.Forms.MaskedTextBox();
             this.txtVreme = new System.Windows.Forms.MaskedTextBox();
+            this.dgvTermini = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPregled)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacijent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvPregled
@@ -60,12 +62,12 @@
             this.dgvPacijent.Name = "dgvPacijent";
             this.dgvPacijent.RowHeadersWidth = 51;
             this.dgvPacijent.RowTemplate.Height = 24;
-            this.dgvPacijent.Size = new System.Drawing.Size(354, 343);
+            this.dgvPacijent.Size = new System.Drawing.Size(354, 215);
             this.dgvPacijent.TabIndex = 2;
             // 
             // btnZakazi
             // 
-            this.btnZakazi.Location = new System.Drawing.Point(568, 392);
+            this.btnZakazi.Location = new System.Drawing.Point(179, 420);
             this.btnZakazi.Name = "btnZakazi";
             this.btnZakazi.Size = new System.Drawing.Size(117, 34);
             this.btnZakazi.TabIndex = 3;
@@ -127,10 +129,22 @@
             this.txtVreme.TabIndex = 12;
             this.txtVreme.ValidatingType = typeof(System.DateTime);
             // 
+            // dgvTermini
+            // 
+            this.dgvTermini.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTermini.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTermini.Location = new System.Drawing.Point(338, 235);
+            this.dgvTermini.Name = "dgvTermini";
+            this.dgvTermini.RowHeadersWidth = 51;
+            this.dgvTermini.RowTemplate.Height = 24;
+            this.dgvTermini.Size = new System.Drawing.Size(485, 219);
+            this.dgvTermini.TabIndex = 13;
+            // 
             // UCZakazivanjePregleda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dgvTermini);
             this.Controls.Add(this.txtVreme);
             this.Controls.Add(this.txtDatum);
             this.Controls.Add(this.label4);
@@ -144,6 +158,7 @@
             this.Size = new System.Drawing.Size(839, 472);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPregled)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacijent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,5 +175,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MaskedTextBox txtDatum;
         private System.Windows.Forms.MaskedTextBox txtVreme;
+        private System.Windows.Forms.DataGridView dgvTermini;
     }
 }

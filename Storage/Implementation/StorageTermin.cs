@@ -18,7 +18,16 @@ namespace Storage.Implementation
         }
         public List<Termin> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                broker.OpenConnection();
+                return broker.GetAllTermini();
+
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
         }
 
         public void Save(Termin termin)
@@ -26,6 +35,20 @@ namespace Storage.Implementation
             broker.OpenConnection();
             broker.SaveTermin(termin);
             broker.CloseConnection();
+        }
+
+        public List<DateTime> GetVremeTermina()
+        {
+            try
+            {
+                broker.OpenConnection();
+                return broker.GetVremeTermina();
+
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
         }
     }
 }

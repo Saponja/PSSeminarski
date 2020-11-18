@@ -9,14 +9,17 @@ using System.Data;
 
 namespace BrokerDB
 {
+
     public class Broker
     {
         private SqlConnection connection;
+
 
         public Broker()
         {
             connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Klinika;Integrated Security=True;
 Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                 
         }
 
         public void OpenConnection()
@@ -255,7 +258,7 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                 };
                 pregledi.Add(pregled);
             }
-
+            reader.Close();
             return pregledi;
 
 
@@ -277,6 +280,62 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             {
                 throw new Exception("Nije dobro unet termin");
             }
+        }
+
+        public List<DateTime> GetVremeTermina()
+        {
+            List<DateTime> datumi = new List<DateTime>();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select Datum from Termini";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                datumi.Add((DateTime)reader["Datum"]);
+            }
+            reader.Close();
+            return datumi;
+        }
+
+        public List<Termin> GetAllTermini()
+        {
+            List<Pacijent> pacijenti = GetAllPacijenti();
+            List<VrstaPregleda> pregledi = GetAllVrstaPregleda();
+            List<Termin> termini = new List<Termin>();
+            SqlCommand command = connection.CreateCommand();
+            //command.CommandText = $"select * from Termini inner join Pacijenti on (Pacijenti.Id = Termini.PacijentId) inner join VrstaPregleda on (Termini.VrstaPregledaId = VrstaPregleda.Id)";
+            command.CommandText = $"select * from Termini";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                //bool hitan = false;
+                //if ((int)reader["Hitan"] == 1)
+                //{
+                //    hitan = true;
+                //}
+                //Pacijent pacijent = new Pacijent()
+                //{
+                //    PacijentID = (int)reader["PacijentId"],
+                //    Ime = (string)reader["Ime"],
+                //    Prezime = (string)reader["Prezime"],
+                //    DaumRodjenja = (DateTime)reader["DatumRodjenja"],
+                //    Hitan = hitan,
+                //    Anamneza = (string)reader["Anamneza"],
+                //    Bolnica = new Bolnica()
+
+                //};
+
+                Termin termin = new Termin()
+                {
+                    DateTime = reader.GetDateTime(2),
+                    Cena = reader.GetDouble(3),
+                    Pacijent = pacijenti.Single(p => p.PacijentID == (int)reader["PacijentId"]),
+                    VrstaPregleda = pregledi.Single(p => p.PregledID == (int)reader["VrstaPregledaId"]),
+                };
+
+                termini.Add(termin);
+            }
+            reader.Close();
+            return termini;
         }
 
     }
