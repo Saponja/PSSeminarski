@@ -106,8 +106,9 @@ namespace ControllerB
             return storageTermin.GetAll();
         }
 
-
-
-        
+        public void SacuvajTermine(List<Termin> termini)
+        {
+            storageTermin.SaveMore(termini);
+        }
     }
 }

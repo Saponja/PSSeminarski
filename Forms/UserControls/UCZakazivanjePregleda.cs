@@ -15,19 +15,27 @@ namespace Forms.UserControls
 {
     public partial class UCZakazivanjePregleda : UserControl
     {
-
+        private BindingList<Termin> termini = new BindingList<Termin>(Controller.Instance.PrikaziTermine());
         public UCZakazivanjePregleda()
         {
             InitializeComponent();
             dgvPacijent.DataSource = Controller.Instance.PrikaziPacijente();
             dgvPregled.DataSource = Controller.Instance.prikaziPreglede();
-            dgvTermini.DataSource = Controller.Instance.PrikaziTermine();
+            dgvTermini.DataSource = termini;
             cbLekar.DataSource = Controller.Instance.PrikaziLekare();
             
         }
 
+        //Prvo dodaj sve u dgv, a onda kad se klikne zakazi, tada ih sacuvaj sve odjednom!!!
+
         private void btnZakazi_Click(object sender, EventArgs e)
         {
+            if(dgvPacijent.SelectedRows.Count < 0 || dgvPregled.SelectedRows.Count < 0)
+            {
+                MessageBox.Show("Morate da izaberete pacijenta i pregled iz tabela");
+                return;
+            }
+
             List<DateTime> termini = Controller.Instance.VratiVremeTermina();
             string datumString = txtDatum.Text + " " + txtVreme.Text;
             DateTime datum = Convert.ToDateTime(datumString);
@@ -44,6 +52,8 @@ namespace Forms.UserControls
                 DateTime = datum,
                 Cena = 123
             };
+
+            
 
             try
             {
@@ -71,6 +81,28 @@ namespace Forms.UserControls
             dgvPregled.DataSource = pregledi;
             dgvPacijent.DataSource = pacijenti;
             
+        }
+
+        private void UCZakazivanjePregleda_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDodaj_Click(object sender, EventArgs e)
+        {
+            string datumString = txtDatum.Text + " " + txtVreme.Text;
+            DateTime datum = Convert.ToDateTime(datumString);
+            Termin termin = new Termin()
+            {
+                Pacijent = (Pacijent)dgvPacijent.SelectedRows[0].DataBoundItem,
+                VrstaPregleda = (VrstaPregleda)dgvPregled.SelectedRows[0].DataBoundItem,
+                DateTime = datum,
+                Cena = 123
+            };
+
+            termini.Add(termin);
+
+
         }
     }
 }

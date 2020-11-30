@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Storage.Implementation
 {
@@ -44,6 +45,32 @@ namespace Storage.Implementation
                 broker.OpenConnection();
                 return broker.GetVremeTermina();
 
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
+        }
+
+        public void SaveMore(List<Termin> termini)
+        {
+            broker.OpenConnection();
+            broker.BeginTransaction();
+
+            try
+            {
+                foreach (Termin termin in termini)
+                {
+                    broker.SaveTermin(termin);
+                }
+
+                broker.Commit();
+
+            }
+            catch(Exception ex)
+            {
+                broker.Rollback();
+                MessageBox.Show(ex.Message);
             }
             finally
             {

@@ -91,6 +91,12 @@
     <Compile Include="UserControls\UCUnosPregleda.Designer.cs">
       <DependentUpon>UCUnosPregleda.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ZakazivanjeTermina.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ZakazivanjeTermina.Designer.cs">
+      <DependentUpon>ZakazivanjeTermina.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCUnosPregleda.resx">
       <DependentUpon>UCUnosPregleda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ZakazivanjeTermina.resx">
+      <DependentUpon>ZakazivanjeTermina.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -71,6 +71,11 @@ namespace Forms.UserControls
 
         private void btnObrisi_Click(object sender, EventArgs e)
         {
+            if(dgvPacijenti.SelectedRows.Count < 1)
+            {
+                MessageBox.Show("Morate da izaberete red");
+                return;
+            }
             DialogResult result = MessageBox.Show("", "Da li ste sigurni da hocete da izbriste pacijente?", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {

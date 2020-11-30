@@ -38,6 +38,7 @@
             this.txtDatum = new System.Windows.Forms.MaskedTextBox();
             this.txtVreme = new System.Windows.Forms.MaskedTextBox();
             this.dgvTermini = new System.Windows.Forms.DataGridView();
+            this.btnDodaj = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPregled)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacijent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).BeginInit();
@@ -49,8 +50,10 @@
             this.dgvPregled.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPregled.Location = new System.Drawing.Point(0, 14);
             this.dgvPregled.Name = "dgvPregled";
+            this.dgvPregled.ReadOnly = true;
             this.dgvPregled.RowHeadersWidth = 51;
             this.dgvPregled.RowTemplate.Height = 24;
+            this.dgvPregled.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPregled.Size = new System.Drawing.Size(463, 215);
             this.dgvPregled.TabIndex = 0;
             // 
@@ -60,8 +63,10 @@
             this.dgvPacijent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPacijent.Location = new System.Drawing.Point(469, 14);
             this.dgvPacijent.Name = "dgvPacijent";
+            this.dgvPacijent.ReadOnly = true;
             this.dgvPacijent.RowHeadersWidth = 51;
             this.dgvPacijent.RowTemplate.Height = 24;
+            this.dgvPacijent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPacijent.Size = new System.Drawing.Size(354, 215);
             this.dgvPacijent.TabIndex = 2;
             // 
@@ -137,13 +142,25 @@
             this.dgvTermini.Name = "dgvTermini";
             this.dgvTermini.RowHeadersWidth = 51;
             this.dgvTermini.RowTemplate.Height = 24;
+            this.dgvTermini.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTermini.Size = new System.Drawing.Size(485, 219);
             this.dgvTermini.TabIndex = 13;
+            // 
+            // btnDodaj
+            // 
+            this.btnDodaj.Location = new System.Drawing.Point(179, 245);
+            this.btnDodaj.Name = "btnDodaj";
+            this.btnDodaj.Size = new System.Drawing.Size(117, 23);
+            this.btnDodaj.TabIndex = 14;
+            this.btnDodaj.Text = "Dodaj";
+            this.btnDodaj.UseVisualStyleBackColor = true;
+            this.btnDodaj.Click += new System.EventHandler(this.btnDodaj_Click);
             // 
             // UCZakazivanjePregleda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnDodaj);
             this.Controls.Add(this.dgvTermini);
             this.Controls.Add(this.txtVreme);
             this.Controls.Add(this.txtDatum);
@@ -155,7 +172,8 @@
             this.Controls.Add(this.dgvPacijent);
             this.Controls.Add(this.dgvPregled);
             this.Name = "UCZakazivanjePregleda";
-            this.Size = new System.Drawing.Size(839, 472);
+            this.Size = new System.Drawing.Size(835, 472);
+            this.Load += new System.EventHandler(this.UCZakazivanjePregleda_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPregled)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacijent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).EndInit();
@@ -176,5 +194,6 @@
         private System.Windows.Forms.MaskedTextBox txtDatum;
         private System.Windows.Forms.MaskedTextBox txtVreme;
         private System.Windows.Forms.DataGridView dgvTermini;
+        private System.Windows.Forms.Button btnDodaj;
     }
 }

@@ -87,6 +87,7 @@
             // 
             // dgvLekari
             // 
+            this.dgvLekari.AllowUserToAddRows = false;
             this.dgvLekari.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvLekari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLekari.Location = new System.Drawing.Point(47, 179);

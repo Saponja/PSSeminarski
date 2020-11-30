@@ -19,11 +19,8 @@ namespace Domain
         public override bool Equals(object obj)
         {
             Pacijent p = obj as Pacijent;
-            if(p == null)
-            {
-                return false;
-            }
-            if(p.PacijentID == PacijentID)
+
+            if(p != null && p.PacijentID == PacijentID)
             {
                 return true;
             }
@@ -34,6 +31,8 @@ namespace Domain
         {
             return $"{Ime} {Prezime}";
         }
+
+        public Pacijent Self { get { return this; } }
 
 
     }

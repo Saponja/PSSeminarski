@@ -13,6 +13,7 @@ namespace BrokerDB
     public class Broker
     {
         private SqlConnection connection;
+        private SqlTransaction transaction;
 
 
         public Broker()
@@ -21,6 +22,9 @@ namespace BrokerDB
 Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                  
         }
+
+        //Ispod command = connection.CreateCommand
+        //command.Transaction = transaction !!!
 
         public void OpenConnection()
         {
@@ -268,18 +272,17 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
         public void SaveTermin(Termin termin)
         {
             SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+
             command.Parameters.AddWithValue("@PacijentId", termin.Pacijent.PacijentID);
-            command.Parameters.AddWithValue("PregledId", termin.VrstaPregleda.PregledID);
+            command.Parameters.AddWithValue("@PregledId", termin.VrstaPregleda.PregledID);
             //command.Parameters.Add("@Datum", SqlDbType.DateTime2);
             //command.Parameters.Add("@Datum");
             command.Parameters.AddWithValue("@Datum", termin.DateTime);
             command.Parameters.AddWithValue("@Cena", termin.Cena);
             command.CommandText = $"insert into Termini values (@PacijentId, @PregledId, @Datum, @Cena)";
 
-            if(command.ExecuteNonQuery() != 1)
-            {
-                throw new Exception("Nije dobro unet termin");
-            }
+            command.ExecuteNonQuery();
         }
 
         public List<DateTime> GetVremeTermina()
@@ -307,23 +310,6 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                //bool hitan = false;
-                //if ((int)reader["Hitan"] == 1)
-                //{
-                //    hitan = true;
-                //}
-                //Pacijent pacijent = new Pacijent()
-                //{
-                //    PacijentID = (int)reader["PacijentId"],
-                //    Ime = (string)reader["Ime"],
-                //    Prezime = (string)reader["Prezime"],
-                //    DaumRodjenja = (DateTime)reader["DatumRodjenja"],
-                //    Hitan = hitan,
-                //    Anamneza = (string)reader["Anamneza"],
-                //    Bolnica = new Bolnica()
-
-                //};
-
                 Termin termin = new Termin()
                 {
                     DateTime = reader.GetDateTime(2),
@@ -336,6 +322,22 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             }
             reader.Close();
             return termini;
+        }
+
+        public void Commit()
+        {
+            transaction.Commit();
+        }
+
+        public void Rollback()
+        {
+            transaction.Rollback();
+        }
+
+        public void BeginTransaction()
+        {
+            transaction = connection.BeginTransaction();
+
         }
 
     }

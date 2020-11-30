@@ -31,6 +31,7 @@ namespace Forms.UserControls
 
         private void btnSacuvaj_Click(object sender, EventArgs e)
         {
+
             VrstaPregleda pregled = new VrstaPregleda()
             {
                 Naziv = txtNaziv.Text,

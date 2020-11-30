@@ -17,5 +17,7 @@ namespace Domain
         {
             return $"{Naziv}";
         }
+
+        public VrstaPregleda Self { get { return this; } }
     }
 }
