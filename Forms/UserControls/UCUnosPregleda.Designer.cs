@@ -38,6 +38,7 @@
             this.txtIme = new System.Windows.Forms.TextBox();
             this.txtPrezime = new System.Windows.Forms.TextBox();
             this.txtSpecijalizacija = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLekari)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,11 +91,11 @@
             this.dgvLekari.AllowUserToAddRows = false;
             this.dgvLekari.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvLekari.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLekari.Location = new System.Drawing.Point(47, 179);
+            this.dgvLekari.Location = new System.Drawing.Point(47, 202);
             this.dgvLekari.Name = "dgvLekari";
             this.dgvLekari.RowHeadersWidth = 51;
             this.dgvLekari.RowTemplate.Height = 24;
-            this.dgvLekari.Size = new System.Drawing.Size(546, 168);
+            this.dgvLekari.Size = new System.Drawing.Size(546, 145);
             this.dgvLekari.TabIndex = 5;
             this.dgvLekari.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvLekari_RowHeaderMouseClick);
             // 
@@ -130,10 +131,21 @@
             this.txtSpecijalizacija.Size = new System.Drawing.Size(100, 22);
             this.txtSpecijalizacija.TabIndex = 9;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(44, 179);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(191, 20);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Izaberite lekara iz tabele";
+            // 
             // UCUnosPregleda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtSpecijalizacija);
             this.Controls.Add(this.txtPrezime);
             this.Controls.Add(this.txtIme);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.TextBox txtIme;
         private System.Windows.Forms.TextBox txtPrezime;
         private System.Windows.Forms.TextBox txtSpecijalizacija;
+        private System.Windows.Forms.Label label4;
     }
 }

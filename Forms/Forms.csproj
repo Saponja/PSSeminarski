@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\UnosDijagnozeDialogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UnosDijagnozeDialogs.Designer.cs">
+      <DependentUpon>UnosDijagnozeDialogs.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,12 @@
     <Compile Include="Helpers\UserControlHelpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\UCKarton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCKarton.Designer.cs">
+      <DependentUpon>UCKarton.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCPrikazPacijenata.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,6 +84,12 @@
     </Compile>
     <Compile Include="UserControls\UCPrikazPregleda.Designer.cs">
       <DependentUpon>UCPrikazPregleda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCUnosDijagnoze.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCUnosDijagnoze.Designer.cs">
+      <DependentUpon>UCUnosDijagnoze.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCZakazivanjePregleda.cs">
       <SubType>UserControl</SubType>
@@ -97,6 +115,9 @@
     <Compile Include="UserControls\ZakazivanjeTermina.Designer.cs">
       <DependentUpon>ZakazivanjeTermina.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dialogs\UnosDijagnozeDialogs.resx">
+      <DependentUpon>UnosDijagnozeDialogs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,11 +133,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\UCKarton.resx">
+      <DependentUpon>UCKarton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCPrikazPacijenata.resx">
       <DependentUpon>UCPrikazPacijenata.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCPrikazPregleda.resx">
       <DependentUpon>UCPrikazPregleda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCUnosDijagnoze.resx">
+      <DependentUpon>UCUnosDijagnoze.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCZakazivanjePregleda.resx">
       <DependentUpon>UCZakazivanjePregleda.cs</DependentUpon>

@@ -18,10 +18,22 @@ namespace ControllerB
         private IStoragePacijent storagePacijent;
         private IStorageLekari storageLekari;
         private IStorageVrstaPregleda storageVrstaPregleda;
+
+        public List<TipDijagnoze> GetTip()
+        {
+            return storageDijagnoza.GetTip();
+        }
+
         private IStorageTermin storageTermin;
+        private IStorageDijagnoza storageDijagnoza;
         public Korisnik LoggedInKorisnik { get; set; }
 
         private static Controller controller;
+
+        public DateTime SledeciTermin(int pacijentID)
+        {
+            return storageTermin.SledeciTermin(pacijentID);
+        }
 
         public static Controller Instance
         {
@@ -42,7 +54,14 @@ namespace ControllerB
             storageLekari = new StorageLekari();
             storageVrstaPregleda = new StorageVrstaPregleda();
             storageTermin = new StorageTermin();
-            
+            storageDijagnoza = new StorageDijagnoza();
+
+
+        }
+
+        public void SaveMoreDijagnoze(List<Dijagnoza> dijagnoze)
+        {
+            storageDijagnoza.SaveMoreDijagnoze(dijagnoze);
         }
 
         public Korisnik Prijava(string username, string password)
@@ -59,6 +78,11 @@ namespace ControllerB
             }
 
             throw new Exception("Korisnik sa datim username-om ili password-om ne postoji");
+        }
+
+        public List<DateTime> VratiVremeTermina()
+        {
+            throw new NotImplementedException();
         }
 
         public void SacuvajTermin(Termin termin)
@@ -96,9 +120,9 @@ namespace ControllerB
             return storageVrstaPregleda.GetAll();
         }
 
-        public List<DateTime> VratiVremeTermina()
+        public List<DateTime> VratiVremeTermina(Lekar lekar)
         {
-            return storageTermin.GetVremeTermina();
+            return storageTermin.GetVremeTermina(lekar);
         }
 
         public List<Termin> PrikaziTermine()
@@ -109,6 +133,11 @@ namespace ControllerB
         public void SacuvajTermine(List<Termin> termini)
         {
             storageTermin.SaveMore(termini);
+        }
+
+        public List<Dijagnoza> GetDijagnoze()
+        {
+            return storageDijagnoza.Get();
         }
     }
 }

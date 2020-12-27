@@ -54,5 +54,10 @@ namespace Forms
         {
             KreirajUC(new ZakazivanjeTermina());
         }
+
+        private void dodajDijagnozeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCUnosDijagnoze());
+        }
     }
 }

@@ -24,6 +24,8 @@ namespace Forms
         {
             InitializeComponent();
             //kontroler = new Controller();
+            txtUsername.Text = "Jovan";
+            txtPassword.Text = "Jovan";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -42,7 +44,7 @@ namespace Forms
                 this.Visible = false;
                 frmMain.ShowDialog();
                 this.Visible = true;
-
+                
             }
             catch (Exception ex)
             {
@@ -52,6 +54,11 @@ namespace Forms
 
 
             
+
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
 
         }
     }

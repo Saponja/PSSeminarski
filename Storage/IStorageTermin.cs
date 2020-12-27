@@ -11,7 +11,9 @@ namespace Storage
     {
         void Save(Termin termin);
         List<Termin> GetAll();
-        List<DateTime> GetVremeTermina();
+        List<DateTime> GetVremeTermina(Lekar lekar);
         void SaveMore(List<Termin> termini);
+
+        DateTime SledeciTermin(int pacijentId);
     }
 }

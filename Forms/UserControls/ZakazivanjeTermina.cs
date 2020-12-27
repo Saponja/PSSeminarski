@@ -92,11 +92,20 @@ namespace Forms.UserControls
         {
             //Provera da li je termin zauzet za tog lekara
 
-            if (!UserControlHelpers.EmptyFieldValidation(txtDate) && DateTime.TryParseExact(txtDate.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+            if (!UserControlHelpers.EmptyFieldValidation(txtDate) && DateTime.TryParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+            {
+                if (SlobodanTerminLekara((Lekar)cbLekari.SelectedItem, date))
+                {
                 listaTermina.Add(new Termin
                 {
-                    DateTime = DateTime.ParseExact(txtDate.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture)
+                    DateTime = DateTime.ParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
                 });
+                }
+            }
+            else
+            {
+                MessageBox.Show("Unesite datum u formatu dd.MM.yyyy HH:mm");
+            }
         }
 
         private void btnZakazi_Click(object sender, EventArgs e)
@@ -108,6 +117,41 @@ namespace Forms.UserControls
             }
 
             Controller.Instance.SacuvajTermine(termini);
+
+            UserControlHelpers.KreirajUC(new ZakazivanjeTermina(), this);
+        }
+
+        private bool SlobodanTerminLekara(Lekar lekar, DateTime date)
+        {
+            if(date < DateTime.Now)
+            {
+                MessageBox.Show("Datum je prosao!");
+                txtDate.BackColor = Color.LightCoral;
+                return false;
+            }
+
+            if(date.Hour < 8 || date.Hour > 16)
+            {
+                MessageBox.Show("Radno vreme klinike je od 08:00 do 16:00!");
+                txtDate.BackColor = Color.LightCoral;
+                return false;
+            }
+
+            foreach (DateTime d in Controller.Instance.VratiVremeTermina(lekar))
+            {
+                if (date.Equals(d))
+                {
+                    MessageBox.Show("Termin je zauzet pokusajte sa novim!");
+                    txtDate.BackColor = Color.LightCoral;
+                    txtDate.Text = date.AddHours(1).ToString("dd.MM.yyyy HH:mm");
+                    return false;
+                }
+            }
+
+            txtDate.BackColor = Color.White;
+            return true;
+
+
         }
     }
 }

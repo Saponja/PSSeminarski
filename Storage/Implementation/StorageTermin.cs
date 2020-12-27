@@ -38,12 +38,12 @@ namespace Storage.Implementation
             broker.CloseConnection();
         }
 
-        public List<DateTime> GetVremeTermina()
+        public List<DateTime> GetVremeTermina(Lekar lekar)
         {
             try
             {
                 broker.OpenConnection();
-                return broker.GetVremeTermina();
+                return broker.GetVremeTermina(lekar);
 
             }
             finally
@@ -71,6 +71,20 @@ namespace Storage.Implementation
             {
                 broker.Rollback();
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
+        }
+
+        public DateTime SledeciTermin(int pacijentId)
+        {
+            try
+            {
+                broker.OpenConnection();
+                return broker.SledeciTermin(pacijentId);
+
             }
             finally
             {

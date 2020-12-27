@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Domain;
 using System.Data;
+using System.Globalization;
 
 namespace BrokerDB
 {
@@ -23,8 +24,6 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
                  
         }
 
-        //Ispod command = connection.CreateCommand
-        //command.Transaction = transaction !!!
 
         public void OpenConnection()
         {
@@ -33,6 +32,37 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
         public void CloseConnection()
         {
             connection.Close();
+        }
+
+        public List<TipDijagnoze> GetTip()
+        {
+            List<TipDijagnoze> dijagnoze = new List<TipDijagnoze>();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "select * from TipDijagnoze";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                TipDijagnoze tip = new TipDijagnoze()
+                {
+                    DijagnozaID = (int)reader[0],
+                    Naziv = (string)reader[1]
+                };
+
+                dijagnoze.Add(tip);
+            }
+            reader.Close();
+            return dijagnoze;
+        }
+
+        public void InsertDijagnoza(Dijagnoza dijagnoza)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.Parameters.AddWithValue("@PacijentId", (int)dijagnoza.PacijentId);
+            command.Parameters.AddWithValue("@DijagnozaId", (int)dijagnoza.DijagnozaId);
+            command.Parameters.AddWithValue("@Datum", (DateTime)dijagnoza.Datum);
+            command.CommandText = $"insert into Dijagnoza values(@Datum, @DijagnozaId, @PacijentId)";
+            command.ExecuteNonQuery();
         }
 
         public List<Korisnik> GetAllKorisnici()
@@ -74,6 +104,15 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             reader.Close();
             return bolnice;
 
+        }
+
+        public DateTime SledeciTermin(int pacijentId)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select max(Datum) from Termini where PacijentId = {pacijentId}";
+            DateTime.TryParse(command.ExecuteScalar().ToString(), out DateTime date);
+           
+            return date;
         }
 
         public List<Pacijent> GetAllPacijenti()
@@ -276,8 +315,6 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
 
             command.Parameters.AddWithValue("@PacijentId", termin.Pacijent.PacijentID);
             command.Parameters.AddWithValue("@PregledId", termin.VrstaPregleda.PregledID);
-            //command.Parameters.Add("@Datum", SqlDbType.DateTime2);
-            //command.Parameters.Add("@Datum");
             command.Parameters.AddWithValue("@Datum", termin.DateTime);
             command.Parameters.AddWithValue("@Cena", termin.Cena);
             command.CommandText = $"insert into Termini values (@PacijentId, @PregledId, @Datum, @Cena)";
@@ -285,15 +322,17 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             command.ExecuteNonQuery();
         }
 
-        public List<DateTime> GetVremeTermina()
+        public List<DateTime> GetVremeTermina(Lekar lekar)
         {
             List<DateTime> datumi = new List<DateTime>();
             SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"select Datum from Termini";
+            command.CommandText = $"select FORMAT (Datum, 'dd.MM.yyyy HH:mm') as Datum from Termini inner join VrstaPregleda on (Termini.VrstaPregledaId = VrstaPregleda.Id) where VrstaPregleda.LekarId = {lekar.LekarID}";
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                datumi.Add((DateTime)reader["Datum"]);
+                string datumString = (string)reader["Datum"];
+                DateTime datum = DateTime.ParseExact(datumString, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                datumi.Add(datum);
             }
             reader.Close();
             return datumi;
@@ -322,6 +361,33 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             }
             reader.Close();
             return termini;
+        }
+
+        public List<Dijagnoza> GetDijagnoze()
+        {
+            List<Pacijent> pacijenti = GetAllPacijenti();
+            List<Dijagnoza> dijagnoze = new List<Dijagnoza>();
+            SqlCommand command = connection.CreateCommand();
+            //command.CommandText = $"select * from Termini inner join Pacijenti on (Pacijenti.Id = Termini.PacijentId) inner join VrstaPregleda on (Termini.VrstaPregledaId = VrstaPregleda.Id)";
+            command.CommandText = $"select * from Dijagnoza inner join TipDijagnoze on(Dijagnoza.DijagnozaId = TipDijagnoze.DijagnozaId)";
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                dijagnoze.Add(new Dijagnoza
+                {
+                    Datum = (DateTime)reader[0],
+                    DijagnozaId = (int)reader[1],
+                    PacijentId = (int)reader[2],
+                    TipDijagnoze = new TipDijagnoze { 
+                        DijagnozaID = (int)reader[3],
+                        Naziv = (string)reader[4]
+                    },
+                    Pacijent  = pacijenti.Single(p => p.PacijentID == (int)reader[2])
+                    
+                });
+            }
+            reader.Close();
+            return dijagnoze;
         }
 
         public void Commit()

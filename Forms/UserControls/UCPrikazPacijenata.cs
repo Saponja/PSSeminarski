@@ -69,6 +69,13 @@ namespace Forms.UserControls
             ucPrikaz.Dock = DockStyle.Fill;
         }
 
+        private void KreirajUC(UserControl user)
+        {
+            this.Controls.Clear();
+            user.Parent = this;
+            user.Dock = DockStyle.Fill;
+        }
+
         private void btnObrisi_Click(object sender, EventArgs e)
         {
             if(dgvPacijenti.SelectedRows.Count < 1)
@@ -120,5 +127,10 @@ namespace Forms.UserControls
            
         }
 
+        private void dgvPacijenti_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+            KreirajUC(new UCKarton((Pacijent)dgvPacijenti.SelectedRows[0].DataBoundItem));
+        }
     }
 }

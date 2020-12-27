@@ -58,6 +58,7 @@
             this.dgvPacijenti.RowTemplate.Height = 24;
             this.dgvPacijenti.Size = new System.Drawing.Size(783, 290);
             this.dgvPacijenti.TabIndex = 0;
+            this.dgvPacijenti.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPacijenti_RowHeaderMouseDoubleClick);
             // 
             // btnPretrazi
             // 

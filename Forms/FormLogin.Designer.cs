@@ -80,7 +80,7 @@
             this.txtPassword.Size = new System.Drawing.Size(204, 22);
             this.txtPassword.TabIndex = 4;
             // 
-            // frmLogin
+            // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -90,8 +90,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLogin);
-            this.Name = "frmLogin";
+            this.Name = "FormLogin";
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.FormLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
