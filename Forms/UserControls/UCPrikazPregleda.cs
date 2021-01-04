@@ -14,7 +14,7 @@ namespace Forms.UserControls
 {
     public partial class UCPrikazPregleda : UserControl
     {
-        private static List<VrstaPregleda> osnovnaLista = Controller.Instance.prikaziPreglede();
+        private static List<VrstaPregleda> osnovnaLista = Communication.Communication.Instance.PrikaziPreglede();
         private static List<VrstaPregleda> listaKojaSeMenja = osnovnaLista;
         public UCPrikazPregleda()
         {
@@ -53,7 +53,7 @@ namespace Forms.UserControls
 
         private void btnResetuj_Click(object sender, EventArgs e)
         {
-            KreirajUC(Controller.Instance.prikaziPreglede());
+            KreirajUC(Communication.Communication.Instance.PrikaziPreglede());
         }
     }
 }

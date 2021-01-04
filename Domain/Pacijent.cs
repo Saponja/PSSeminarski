@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Pacijent
+    [Serializable]
+    public class Pacijent : IEntity
     {
         public int PacijentID { get; set; }
         public string Ime { get; set; }
@@ -34,6 +35,8 @@ namespace Domain
 
         public Pacijent Self { get { return this; } }
 
+        public string TableName => throw new NotImplementedException();
 
+        public string InsertValues => throw new NotImplementedException();
     }
 }

@@ -18,6 +18,7 @@ namespace ControllerB
         private IStoragePacijent storagePacijent;
         private IStorageLekari storageLekari;
         private IStorageVrstaPregleda storageVrstaPregleda;
+        private static object _lock = new object();
 
         public List<TipDijagnoze> GetTip()
         {
@@ -41,7 +42,13 @@ namespace ControllerB
             {
                 if(controller == null)
                 {
-                    controller = new Controller();
+                    lock (_lock)
+                    {
+                        if (controller == null)
+                        {
+                            controller = new Controller();
+                        }
+                    }
                 }
                 return controller;
             }

@@ -27,3 +27,5 @@ C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.Zaka
 C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCKarton.resources
 C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCUnosDijagnoze.resources
 C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.Dialogs.UnosDijagnozeDialogs.resources
+C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\Common.dll
+C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\Common.pdb

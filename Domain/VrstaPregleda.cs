@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class VrstaPregleda
+    [Serializable]
+    public class VrstaPregleda : IEntity
     {
         public int PregledID { get; set; }
         public string Naziv { get; set; }
@@ -19,5 +20,9 @@ namespace Domain
         }
 
         public VrstaPregleda Self { get { return this; } }
+
+        public string TableName => throw new NotImplementedException();
+
+        public string InsertValues => throw new NotImplementedException();
     }
 }

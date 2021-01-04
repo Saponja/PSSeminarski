@@ -41,9 +41,17 @@ namespace Storage.Implementation
 
         public void Delete(Pacijent pacijent)
         {
-            broker.OpenConnection();
-            broker.DeletePacijent(pacijent);
-            broker.CloseConnection();
+            try
+            {
+                broker.OpenConnection();
+                broker.DeletePacijent(pacijent);
+            }
+            finally
+            {
+                broker.CloseConnection();
+            }
+            
+            
         }
     }
 }

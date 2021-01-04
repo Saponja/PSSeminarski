@@ -18,18 +18,19 @@ namespace Forms
 {
     public partial class FormLogin : Form
     {
-        //private Controller kontroler;
 
+        MainController main = new MainController();
         public FormLogin()
         {
             InitializeComponent();
-            //kontroler = new Controller();
             txtUsername.Text = "Jovan";
             txtPassword.Text = "Jovan";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+
+            
 
             if (UserControlHelpers.EmptyFieldValidation(txtUsername) | UserControlHelpers.EmptyFieldValidation(txtPassword))
             {
@@ -38,8 +39,9 @@ namespace Forms
 
             try
             {
-                Korisnik korisnik =Controller.Instance.Prijava(txtUsername.Text, txtPassword.Text);
-                MessageBox.Show($"Dobrodosli, {Controller.Instance.LoggedInKorisnik.Username}");
+                //Korisnik korisnik =Controller.Instance.Prijava(txtUsername.Text, txtPassword.Text);
+                Korisnik korisnik = Communication.Communication.Instance.Login(txtUsername.Text, txtPassword.Text);
+                //MessageBox.Show($"Dobrodosli, {Controller.Instance.LoggedInKorisnik.Username}");
                 FormMain frmMain = new FormMain();
                 this.Visible = false;
                 frmMain.ShowDialog();
@@ -60,6 +62,7 @@ namespace Forms
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
+            main.Connect();
         }
     }
 }

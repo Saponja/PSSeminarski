@@ -14,12 +14,12 @@ namespace Forms.UserControls
 {
     public partial class UCPrikazPacijenata : UserControl
     {
-        private static List<Pacijent> osnovnaLista = Controller.Instance.PrikaziPacijente();
+        private static List<Pacijent> osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
         private static List<Pacijent> listaKojaSeMenja = osnovnaLista;
         public UCPrikazPacijenata()
         {
             InitializeComponent();
-            dgvPacijenti.DataSource = Controller.Instance.PrikaziPacijente();
+            dgvPacijenti.DataSource = Communication.Communication.Instance.PrikaziPacijente();
         }
 
         public UCPrikazPacijenata(List<Pacijent> lista)
@@ -58,7 +58,7 @@ namespace Forms.UserControls
 
         private void btnResetuj_Click(object sender, EventArgs e)
         {
-            KreirajUC(Controller.Instance.PrikaziPacijente());
+            KreirajUC(Communication.Communication.Instance.PrikaziPacijente());
         }
 
         private void KreirajUC(List<Pacijent> lista)
@@ -88,7 +88,7 @@ namespace Forms.UserControls
             {
                 List<int> listaZaBrisanje = new List<int>();
                 listaKojaSeMenja = (List<Pacijent>)dgvPacijenti.DataSource;
-                osnovnaLista = Controller.Instance.PrikaziPacijente();
+                osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
                 foreach (DataGridViewRow item in dgvPacijenti.SelectedRows)
                 {
                     int id = (int)item.Cells[0].Value;
@@ -104,10 +104,10 @@ namespace Forms.UserControls
                         brojac = brojac + 1;
                         listaKojaSeMenja.Remove(pacijent);
                     }
-                    Controller.Instance.DeletePacijent(pacijent);
+                    Communication.Communication.Instance.DeletePacijent(pacijent);
                     //osnovnaLista.Remove(pacijent);
                 }
-                osnovnaLista = Controller.Instance.PrikaziPacijente();
+                osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
 
                 if (brojac == listaZaBrisanje.Count)
                 {

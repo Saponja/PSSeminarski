@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
+    [Serializable]
     public class Dijagnoza
     {
         public DateTime Datum { get; set; }
