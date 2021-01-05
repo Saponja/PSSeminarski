@@ -47,7 +47,7 @@ namespace Forms.UserControls
 
             try
             {
-                Communication.Communication.SacuvajPacijenta(pacijent);
+                Communication.Communication.Instance.SacuvajPacijenta(pacijent);
                 MessageBox.Show("Pacijent je uspesno sacuvan!");
                 
             }

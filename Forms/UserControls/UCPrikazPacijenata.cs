@@ -97,15 +97,13 @@ namespace Forms.UserControls
                 int brojac = 0;
                 foreach (int i in listaZaBrisanje)
                 {
-                    //brojaci??? 
                     Pacijent pacijent = osnovnaLista.Find(p => p.PacijentID == i);
                     if (listaKojaSeMenja.Contains(pacijent))
                     {
                         brojac = brojac + 1;
                         listaKojaSeMenja.Remove(pacijent);
                     }
-                    Communication.Communication.Instance.DeletePacijent(pacijent);
-                    //osnovnaLista.Remove(pacijent);
+                    Communication.Communication.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
                 }
                 osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
 

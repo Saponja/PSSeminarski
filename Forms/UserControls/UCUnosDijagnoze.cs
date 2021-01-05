@@ -41,7 +41,7 @@ namespace Forms.UserControls
 
         private void btnUnesi_Click(object sender, EventArgs e)
         {
-            Controller.Instance.SaveMoreDijagnoze(dijagnoze.ToList());
+           Communication.Communication.Instance.SacuvajDijagnozu(dijagnoze.ToList());
         }
     }
 }

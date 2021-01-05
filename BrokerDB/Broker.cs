@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Domain;
 using System.Data;
 using System.Globalization;
+using System.Configuration;
 
 namespace BrokerDB
 {
@@ -19,10 +20,10 @@ namespace BrokerDB
 
         public Broker()
         {
-            connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Klinika;Integrated Security=True;
-Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["KlinikaDatabase"].ConnectionString);
                  
         }
+
 
 
         public void OpenConnection()
@@ -33,6 +34,8 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
         {
             connection.Close();
         }
+
+        #region Negenericke metode
 
         public List<TipDijagnoze> GetTip()
         {
@@ -53,6 +56,8 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             reader.Close();
             return dijagnoze;
         }
+
+        
 
         public void InsertDijagnoza(Dijagnoza dijagnoza)
         {
@@ -390,6 +395,8 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
             return dijagnoze;
         }
 
+        #endregion
+
         public void Commit()
         {
             transaction.Commit();
@@ -404,6 +411,53 @@ Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=
         {
             transaction = connection.BeginTransaction();
 
+        }
+
+        public int GetNewId(IEntity entity)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"select max({entity.IdColumn}) from {entity.TableName}";
+            object result = command.ExecuteScalar();
+            if (result is DBNull)
+            {
+                return 1;
+            }
+            else
+            {
+                return (int)result + 1;
+            }
+
+        }
+
+        public List<IEntity> GetAll(IEntity entity)
+        {
+            List<IEntity> result = new List<IEntity>();
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"select {entity.SelectColumns} from {entity.TableName} {entity.TableAlias}" +
+                $" {entity.JoinTable} {entity.JoinCondition} {entity.JoinTable2} {entity.JoinCondition2}";
+            SqlDataReader reader = command.ExecuteReader();
+            result = entity.GetEntities(reader);
+            reader.Close();
+
+            return result;
+        }
+
+        public void Delete(IEntity entity, int id)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"delete from {entity.TableName} where {entity.IdColumn} = {id}";
+            command.ExecuteNonQuery();
+        }
+
+        public void Save(IEntity entity)
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"insert into {entity.TableName} values ({entity.InsertValues})";
+            command.ExecuteNonQuery();
         }
 
     }

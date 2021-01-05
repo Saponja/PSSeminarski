@@ -15,6 +15,10 @@ namespace Common
         UnosPacijenta,
         UnosPregleda,
         ZakazivanjeTermina,
-        BrisanjePacijenta
+        BrisanjePacijenta,
+        PrikazLekara,
+        PrikazTermina,
+        PrikazTipa,
+        
     }
 }

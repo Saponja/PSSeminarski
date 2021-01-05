@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -13,6 +14,7 @@ namespace Server
     public class Server
     {
         private Socket listener;
+        List<ClientHandler> clients = new List<ClientHandler>();
         public Server()
         {
             listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -21,20 +23,40 @@ namespace Server
 
         public void Start()
         {
-            listener.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999));
+            listener.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), int.Parse(ConfigurationManager.AppSettings["port"])));
         }
 
         public void Listen()
         {
-            while (true) 
+            try
             {
-                listener.Listen(5);
-                Socket client = listener.Accept();
-                ClientHandler clientHandler = new ClientHandler(client);
-                Thread thread = new Thread(clientHandler.StartHandler);
-                thread.Start();
+                while (true)
+                {
+                    listener.Listen(5);
+                    Socket client = listener.Accept();
+                    ClientHandler clientHandler = new ClientHandler(client);
+                    clients.Add(clientHandler);
+                    Thread thread = new Thread(clientHandler.StartHandler);
+                    thread.Start();
+                }
+            }
+            catch (SocketException)
+            {
+                Console.WriteLine("Kraj rada, server je zaustavljen");
             }
             
+        }
+
+        internal void Stop()
+        {
+            listener.Close();
+            foreach (ClientHandler client in clients)
+            {
+                client.Stop();
+            }
+
+            clients.Clear();
+
         }
     }
 }

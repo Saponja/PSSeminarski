@@ -25,6 +25,39 @@ namespace Forms.Communication
             return (List<VrstaPregleda>)response.Result;
         }
 
+        internal List<TipDijagnoze> PrikaziTip()
+        {
+            Request request = new Request { Operation = Operation.PrikazTipa };
+            sender.Send(request);
+            Response response = (Response)receiver.Receive();
+            return (List<TipDijagnoze>) response.Result;
+
+        }
+
+        internal List<Termin> PrikaziTermine()
+        {
+            Request request = new Request { Operation = Operation.PrikazTermina };
+            sender.Send(request);
+            Response response = receiver.Receive();
+            return (List<Termin>)response.Result;
+        }
+
+        internal void SacuvajDijagnozu(List<Dijagnoza> dijagnoze)
+        {
+            Request request = new Request { Operation = Operation.UnosDijagnoze, Data = dijagnoze };
+            sender.Send(request);
+            Response response = receiver.Receive();
+
+        }
+
+        internal List<Lekar> PrikaziLekare()
+        {
+            Request request = new Request { Operation = Operation.PrikazLekara};
+            sender.Send(request);
+            Response response = receiver.Receive();
+            return (List<Lekar>)response.Result;
+        }
+
         private Communication()
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -51,9 +84,19 @@ namespace Forms.Communication
             return (List<Pacijent>)response.Result;
         }
 
-        internal static void SacuvajPacijenta(Pacijent pacijent)
+        internal void SacuvajVrstuPregleda(VrstaPregleda pregled)
+        {
+            Request request = new Request { Operation = Operation.UnosPregleda, Data = pregled };
+            sender.Send(request);
+            Response response = receiver.Receive();
+        }
+
+        internal void SacuvajPacijenta(Pacijent pacijent)
         {
             Request request = new Request { Operation = Operation.UnosPacijenta, Data = pacijent };
+            sender.Send(request);
+            Response response = receiver.Receive();
+            
         }
 
         public Korisnik Login(string username, string password)
@@ -72,9 +115,16 @@ namespace Forms.Communication
             receiver = new Receiver(socket);
         }
 
-        internal void DeletePacijent(Pacijent pacijent)
+        internal void DeletePacijent(Pacijent pacijent, int id)
         {
             Request request = new Request { Operation = Operation.BrisanjePacijenta, Data = pacijent };
+            sender.Send(request);
+            Response response = receiver.Receive();
+        }
+
+        internal void SacuvajTermine(List<Termin> termini)
+        {
+            Request request = new Request { Operation = Operation.ZakazivanjeTermina, Data = termini };
             sender.Send(request);
             Response response = receiver.Receive();
         }

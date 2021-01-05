@@ -39,7 +39,7 @@ namespace Forms.UserControls
                 Lekar = (Lekar)dgvLekari.SelectedRows[0].DataBoundItem
             };
 
-            Controller.Instance.SacuvajVrstuPregleda(pregled);
+            Communication.Communication.Instance.SacuvajVrstuPregleda(pregled);
 
             DialogResult result = MessageBox.Show("", "Da li zelite da uneste jos pregleda?", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)

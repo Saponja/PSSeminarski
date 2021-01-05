@@ -16,15 +16,16 @@ namespace Forms.UserControls
 {
     public partial class ZakazivanjeTermina : UserControl
     {
-        private BindingList<Termin> termini = new BindingList<Termin>(Controller.Instance.PrikaziTermine());
+        private BindingList<Termin> termini = new BindingList<Termin>(Communication.Communication.Instance.PrikaziTermine());
         private BindingList<Termin> listaTermina = new BindingList<Termin>();
+        private bool isset = false;
 
         public ZakazivanjeTermina()
         {
             InitializeComponent();
-            cbLekari.DataSource = Controller.Instance.PrikaziLekare();
-            List<Pacijent> pacijenti = Controller.Instance.PrikaziPacijente();
-            List<VrstaPregleda> pregledi = Controller.Instance.prikaziPreglede();
+            cbLekari.DataSource = Communication.Communication.Instance.PrikaziLekare();
+            List<Pacijent> pacijenti = Communication.Communication.Instance.PrikaziPacijente();
+            List<VrstaPregleda> pregledi = Communication.Communication.Instance.PrikaziPreglede();
             dgvTermini.DataSource = listaTermina;
             //ChangeDataGridView();
 
@@ -33,8 +34,8 @@ namespace Forms.UserControls
 
         private void ChangeDataGridView()
         {
-            List<VrstaPregleda> pregledi = Controller.Instance.prikaziPreglede();
-            List<Pacijent> pacijenti = Controller.Instance.PrikaziPacijente();
+            List<VrstaPregleda> pregledi = Communication.Communication.Instance.PrikaziPreglede();
+            List<Pacijent> pacijenti = Communication.Communication.Instance.PrikaziPacijente();
 
             Lekar lekar = (Lekar)cbLekari.SelectedItem;
             pregledi = pregledi.Where(p => p.Lekar.LekarID == lekar.LekarID).ToList();
@@ -43,6 +44,7 @@ namespace Forms.UserControls
             dgvTermini.DataSource = listaTermina;
             AddComboBoxPacijenti(dgvTermini, pacijenti);
             AddComboBoxPregledi(dgvTermini, pregledi);
+
 
         }
 
@@ -64,7 +66,9 @@ namespace Forms.UserControls
             columnPacijent.ValueMember = "Self";
 
             columnPacijent.HeaderText = "Pacijent";
+
             dgvTermini.Columns.Add(columnPacijent);
+            
         }
 
         private void AddComboBoxPregledi(DataGridView dgvTermini, List<VrstaPregleda> pregledi)
@@ -78,8 +82,10 @@ namespace Forms.UserControls
             columnPregled.DisplayMember = "Naziv";
             columnPregled.ValueMember = "Self";
 
+
             columnPregled.HeaderText = "VrstaPregleda";
             dgvTermini.Columns.Add(columnPregled);
+
         }
 
         private void cbLekari_SelectionChangeCommitted(object sender, EventArgs e)
@@ -115,8 +121,11 @@ namespace Forms.UserControls
             {
                 termini.Add((Termin)row.DataBoundItem);
             }
+            
 
-            Controller.Instance.SacuvajTermine(termini);
+            Communication.Communication.Instance.SacuvajTermine(termini);
+
+            
 
             UserControlHelpers.KreirajUC(new ZakazivanjeTermina(), this);
         }

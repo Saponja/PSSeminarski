@@ -57,6 +57,17 @@ namespace Server
                     response.Result = Controller.Instance.prikaziPreglede();
                     break;
                 case Operation.UnosDijagnoze:
+                    try
+                    {
+                        List<Dijagnoza> dijagnoze = (List<Dijagnoza>)request.Data;
+                        Controller.Instance.SacuvajDijagnoze(dijagnoze);
+                        response.IsSuccessful = true;
+                    }
+                    catch (Exception)
+                    {
+                        response.IsSuccessful = false;
+                        throw;
+                    }
                     break;
                 case Operation.UnosPacijenta:
                     try
@@ -72,13 +83,24 @@ namespace Server
                     }
                     break;
                 case Operation.UnosPregleda:
-                    break;
-                case Operation.ZakazivanjeTermina:
-                    break;
-                case Operation.BrisanjePacijenta:
                     try
                     {
-                        Controller.Instance.DeletePacijent((Pacijent)request.Data);
+                        VrstaPregleda pregled = (VrstaPregleda)request.Data;
+                        Controller.Instance.SacuvajVrstuPregleda(pregled);
+                        response.IsSuccessful = true;
+                    }
+                    catch (Exception)
+                    {
+                        response.IsSuccessful = false;
+                        throw;
+                    }
+
+                    break;
+                case Operation.ZakazivanjeTermina:
+                    try
+                    {
+                        List<Termin> termini = (List<Termin>)request.Data;
+                        Controller.Instance.ZakazivanjeTermina(termini);
                         response.IsSuccessful = true;
                     }
                     catch (Exception ex)
@@ -87,13 +109,41 @@ namespace Server
                         response.Error = ex.Message;
 
                     }
-                    
+                    break;
+                case Operation.BrisanjePacijenta:
+                    try
+                    {
+                        Pacijent pacijent = (Pacijent)request.Data;
+                        Controller.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
+                        response.IsSuccessful = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        response.IsSuccessful = false;
+                        response.Error = ex.Message;
+
+                    }
+
+                    break;
+                case Operation.PrikazLekara:
+                    response.Result = Controller.Instance.PrikaziLekare();
+                    break;
+                case Operation.PrikazTermina:
+                    response.Result = Controller.Instance.PrikaziTermine();
+                    break;
+                case Operation.PrikazTipa:
+                    response.Result = Controller.Instance.PrikazTipa();
                     break;
                 default:
                     break;
             }
 
             return response;
+        }
+
+        internal void Stop()
+        {
+            client.Close();
         }
     }
 }

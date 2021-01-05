@@ -18,8 +18,8 @@ namespace Forms.Dialogs
         public UnosDijagnozeDialogs()
         {
             InitializeComponent();
-            cbPacijent.DataSource = Controller.Instance.PrikaziPacijente();
-            cbTip.DataSource = Controller.Instance.GetTip();
+            cbPacijent.DataSource = Communication.Communication.Instance.PrikaziPacijente();
+            cbTip.DataSource = Communication.Communication.Instance.PrikaziTip();
             cbTip.DisplayMember = "Naziv";
             cbTip.SelectedIndex = -1;
             cbPacijent.SelectedIndex = -1;

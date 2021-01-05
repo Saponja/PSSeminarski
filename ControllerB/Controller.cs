@@ -18,6 +18,9 @@ namespace ControllerB
         private IStoragePacijent storagePacijent;
         private IStorageLekari storageLekari;
         private IStorageVrstaPregleda storageVrstaPregleda;
+
+        private IRepository repository;
+
         private static object _lock = new object();
 
         public List<TipDijagnoze> GetTip()
@@ -63,12 +66,19 @@ namespace ControllerB
             storageTermin = new StorageTermin();
             storageDijagnoza = new StorageDijagnoza();
 
+            repository = new Repository();
+
 
         }
 
         public void SaveMoreDijagnoze(List<Dijagnoza> dijagnoze)
         {
             storageDijagnoza.SaveMoreDijagnoze(dijagnoze);
+        }
+
+        public void SacuvajDijagnoze(List<Dijagnoza> dijagnoze)
+        {
+            repository.SaveMore(dijagnoze.Cast<IEntity>().ToList());
         }
 
         public Korisnik Prijava(string username, string password)
@@ -99,32 +109,45 @@ namespace ControllerB
 
         public void SacuvajPacijenta(Pacijent pacijent)
         {
-            storagePacijent.Save(pacijent);
+            //storagePacijent.Save(pacijent);
+            pacijent.PacijentID = repository.GetNewId(new Pacijent());
+            repository.Save(pacijent);
         }
 
         public List<Pacijent> PrikaziPacijente()
         {
-            return storagePacijent.GetAll();
+            return repository.GetAll(new Pacijent()).Cast<Pacijent>().ToList();
         }
 
-        public void DeletePacijent(Pacijent pacijent)
+        public void ZakazivanjeTermina(List<Termin> termini)
         {
-            storagePacijent.Delete(pacijent);
+
+            repository.SaveMore(termini.Cast<IEntity>().ToList());
+            //foreach (Termin termin in termini)
+            //{
+            //    repository.Save(termin);
+            //}
+        }
+
+        public void DeletePacijent(Pacijent pacijent, int id)
+        {
+            repository.Delete(pacijent, id);
         }
 
         public List<Lekar> PrikaziLekare()
         {
-            return storageLekari.GetAll();
+            return repository.GetAll(new Lekar()).Cast<Lekar>().ToList();
         }
 
         public void SacuvajVrstuPregleda(VrstaPregleda pregled)
         {
-            storageVrstaPregleda.Save(pregled);
+            pregled.PregledID = repository.GetNewId(pregled);
+            repository.Save(pregled);
         }
 
         public List<VrstaPregleda> prikaziPreglede()
         {
-            return storageVrstaPregleda.GetAll();
+            return repository.GetAll(new VrstaPregleda()).Cast<VrstaPregleda>().ToList();
         }
 
         public List<DateTime> VratiVremeTermina(Lekar lekar)
@@ -134,7 +157,12 @@ namespace ControllerB
 
         public List<Termin> PrikaziTermine()
         {
-            return storageTermin.GetAll();
+            return repository.GetAll(new Termin()).Cast<Termin>().ToList();
+        }
+
+        public List<TipDijagnoze> PrikazTipa()
+        {
+            return repository.GetAll(new TipDijagnoze()).Cast<TipDijagnoze>().ToList();
         }
 
         public void SacuvajTermine(List<Termin> termini)

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\StorageBolnice.cs" />
     <Compile Include="Implementation\StorageDijagnoza.cs" />
     <Compile Include="Implementation\StorageKorisnik.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Implementation\StoragePacijent.cs" />
     <Compile Include="Implementation\StorageTermin.cs" />
     <Compile Include="Implementation\StorageVrstaPregleda.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="IStorageBolnice.cs" />
     <Compile Include="IStorageDijagnoza.cs" />
     <Compile Include="IStorageKorisnici.cs" />

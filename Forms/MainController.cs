@@ -26,7 +26,6 @@ namespace Forms
             try
             {
                 Communication.Communication.Instance.Connect();
-                MessageBox.Show("Uspesno ste se konektovali");
             }
             catch (SocketException)
             {
