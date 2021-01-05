@@ -36,8 +36,10 @@ namespace Server
                 server.Start();
                 Thread thread = new Thread(server.Listen);
                 thread.Start();
+                thread.IsBackground = true; 
                 btnPokerni.Enabled = false;
                 btnZaustavi.Enabled = true;
+                server.Users.ListChanged += Users_ListChanged;
 
             }
             catch (SocketException se)
@@ -45,6 +47,12 @@ namespace Server
 
                 MessageBox.Show(se.Message);
             }
+        }
+
+        private void Users_ListChanged(object sender, ListChangedEventArgs e)
+        {
+
+            dgvKlijenti.Invoke(new Action(() => dgvKlijenti.DataSource = server.Users.ToList()));
         }
 
         private void btnZaustavi_Click(object sender, EventArgs e)

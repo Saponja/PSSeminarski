@@ -18,7 +18,7 @@ namespace Forms.UserControls
         public UCUnosPregleda()
         {
             InitializeComponent();
-            dgvLekari.DataSource = Controller.Instance.PrikaziLekare();
+            dgvLekari.DataSource = Communication.Communication.Instance.PrikaziLekare();
             
         }
 

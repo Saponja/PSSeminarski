@@ -19,3 +19,5 @@ C:\Users\Admin\source\repos\PSSeminarski\Server\obj\Debug\Server.csproj.CoreComp
 C:\Users\Admin\source\repos\PSSeminarski\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Admin\source\repos\PSSeminarski\Server\obj\Debug\Server.exe
 C:\Users\Admin\source\repos\PSSeminarski\Server\obj\Debug\Server.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Server\bin\Debug\SystemOperations.dll
+C:\Users\Admin\source\repos\PSSeminarski\Server\bin\Debug\SystemOperations.pdb

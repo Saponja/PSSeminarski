@@ -30,6 +30,8 @@
         {
             this.btnPokerni = new System.Windows.Forms.Button();
             this.btnZaustavi = new System.Windows.Forms.Button();
+            this.dgvKlijenti = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPokerni
@@ -52,16 +54,28 @@
             this.btnZaustavi.UseVisualStyleBackColor = true;
             this.btnZaustavi.Click += new System.EventHandler(this.btnZaustavi_Click);
             // 
+            // dgvKlijenti
+            // 
+            this.dgvKlijenti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKlijenti.Location = new System.Drawing.Point(50, 105);
+            this.dgvKlijenti.Name = "dgvKlijenti";
+            this.dgvKlijenti.RowHeadersWidth = 51;
+            this.dgvKlijenti.RowTemplate.Height = 24;
+            this.dgvKlijenti.Size = new System.Drawing.Size(713, 309);
+            this.dgvKlijenti.TabIndex = 2;
+            // 
             // FrmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dgvKlijenti);
             this.Controls.Add(this.btnZaustavi);
             this.Controls.Add(this.btnPokerni);
             this.Name = "FrmServer";
-            this.Text = "Form1";
+            this.Text = "Server";
             this.Load += new System.EventHandler(this.FrmServer_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -70,6 +84,7 @@
 
         private System.Windows.Forms.Button btnPokerni;
         private System.Windows.Forms.Button btnZaustavi;
+        private System.Windows.Forms.DataGridView dgvKlijenti;
     }
 }
 

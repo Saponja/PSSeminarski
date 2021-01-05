@@ -15,9 +15,11 @@ namespace Server
     public class ClientHandler
     {
         private Socket client;
-        public ClientHandler(Socket client)
+        private Server server;
+        public ClientHandler(Socket client, Server server)
         {
             this.client = client;
+            this.server = server;
         }
 
         public void StartHandler()
@@ -49,6 +51,7 @@ namespace Server
                 case Operation.Login:
                     Korisnik korisnik = (Korisnik)request.Data;
                     response.Result = Controller.Instance.Prijava(korisnik.Username, korisnik.Password);
+                    server.Users.Add((Korisnik)response.Result);
                     break;
                 case Operation.PrikazPacijenata:
                     response.Result = Controller.Instance.PrikaziPacijente();

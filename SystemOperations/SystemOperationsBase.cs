@@ -10,15 +10,33 @@ namespace SystemOperations
 {
     public abstract class SystemOperationsBase
     {
-        Broker broker = new Broker();
+        protected Broker broker;
+
+        public SystemOperationsBase()
+        {
+            broker = new Broker();
+        }
+
+        
         public object Result { get; set; }
-        public void ExecuteTemplate(IEntity entity)
+        public void ExecuteTemplate(IEntity entity = null, List<IEntity> entities = null)
         {
             try
             {
                 broker.OpenConnection();
                 broker.BeginTransaction();
-                ExecuteOperation(entity);
+                if(entities != null)
+                {
+                    foreach (IEntity e in entities)
+                    {
+                        ExecuteOperation(e);
+                    }
+                }
+                if(entity != null)
+                {
+                    ExecuteOperation(entity);
+                }
+
                 broker.Commit();
             }
             catch (Exception)

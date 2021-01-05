@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -14,11 +16,17 @@ namespace Server
     public class Server
     {
         private Socket listener;
-        List<ClientHandler> clients = new List<ClientHandler>();
+        private List<ClientHandler> clients = new List<ClientHandler>();
+        private BindingList<Korisnik> users = new BindingList<Korisnik>();
+        public BindingList<Korisnik> Users
+        {
+            get { return users; }
+      
+        }
+
         public Server()
         {
-            listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            
+            listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);  
         }
 
         public void Start()
@@ -34,7 +42,7 @@ namespace Server
                 {
                     listener.Listen(5);
                     Socket client = listener.Accept();
-                    ClientHandler clientHandler = new ClientHandler(client);
+                    ClientHandler clientHandler = new ClientHandler(client, this);
                     clients.Add(clientHandler);
                     Thread thread = new Thread(clientHandler.StartHandler);
                     thread.Start();

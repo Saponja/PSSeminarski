@@ -11,3 +11,5 @@ C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.cspro
 C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.csproj.CopyComplete
 C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.dll
 C:\Users\Admin\source\repos\PSSeminarski\ControllerB\obj\Debug\ControllerB.pdb
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\SystemOperations.dll
+C:\Users\Admin\source\repos\PSSeminarski\ControllerB\bin\Debug\SystemOperations.pdb
