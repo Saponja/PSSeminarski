@@ -38,19 +38,19 @@ namespace Storage.Implementation
             broker.CloseConnection();
         }
 
-        public List<DateTime> GetVremeTermina(Lekar lekar)
-        {
-            try
-            {
-                broker.OpenConnection();
-                return broker.GetVremeTermina(lekar);
+        //public List<DateTime> GetVremeTermina(Lekar lekar)
+        //{
+        //    try
+        //    {
+        //        broker.OpenConnection();
+        //        return broker.GetWhere(lekar);
 
-            }
-            finally
-            {
-                broker.CloseConnection();
-            }
-        }
+        //    }
+        //    finally
+        //    {
+        //        broker.CloseConnection();
+        //    }
+        //}
 
         public void SaveMore(List<Termin> termini)
         {
@@ -78,18 +78,18 @@ namespace Storage.Implementation
             }
         }
 
-        public DateTime SledeciTermin(int pacijentId)
-        {
-            try
-            {
-                broker.OpenConnection();
-                return broker.SledeciTermin(pacijentId);
+        //public DateTime SledeciTermin(int pacijentId)
+        //{
+        //    try
+        //    {
+        //        broker.OpenConnection();
+        //        return broker.SledeciTermin(pacijentId);
 
-            }
-            finally
-            {
-                broker.CloseConnection();
-            }
-        }
+        //    }
+        //    finally
+        //    {
+        //        broker.CloseConnection();
+        //    }
+        //}
     }
 }

@@ -19,9 +19,9 @@ namespace Forms.UserControls
         {
             InitializeComponent();
             Pacijent pacijentKarton = pacijent;
-            dijagnoze = Controller.Instance.GetDijagnoze();
+            dijagnoze = Communication.Communication.Instance.PrikaziDijagnoze();
             lblPacijent.Text = pacijent.Ime + " " + pacijent.Prezime;
-            lblTermin.Text = Controller.Instance.SledeciTermin(pacijent.PacijentID).ToString();
+            lblTermin.Text = Communication.Communication.Instance.SledeciTermin($"where PacijentId = {pacijent.PacijentID}").ToString();
 
             dgvDijagnoze.DataSource = dijagnoze.Where(d => d.PacijentId == pacijentKarton.PacijentID).ToList();
             

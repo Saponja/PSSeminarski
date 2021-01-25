@@ -93,12 +93,6 @@
     <Compile Include="UserControls\UCUnosDijagnoze.Designer.cs">
       <DependentUpon>UCUnosDijagnoze.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UCZakazivanjePregleda.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\UCZakazivanjePregleda.Designer.cs">
-      <DependentUpon>UCZakazivanjePregleda.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UCUnosPacijenta.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,9 +140,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCUnosDijagnoze.resx">
       <DependentUpon>UCUnosDijagnoze.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCZakazivanjePregleda.resx">
-      <DependentUpon>UCZakazivanjePregleda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCUnosPacijenta.resx">
       <DependentUpon>UCUnosPacijenta.cs</DependentUpon>

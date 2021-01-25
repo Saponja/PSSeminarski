@@ -146,7 +146,7 @@ namespace Forms.UserControls
                 return false;
             }
 
-            foreach (DateTime d in Controller.Instance.VratiVremeTermina(lekar))
+            foreach (DateTime d in Communication.Communication.Instance.VratiVremeTermina($"where vp.LekarId = {lekar.LekarID}"))
             {
                 if (date.Equals(d))
                 {

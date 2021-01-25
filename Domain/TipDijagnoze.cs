@@ -31,6 +31,10 @@ namespace Domain
 
         public string JoinCondition2 => "";
 
+        public string SelectColumnsWhere => "";
+
+        public string Where => "";
+
         public List<IEntity> GetEntities(SqlDataReader reader)
         {
             List<IEntity> entities = new List<IEntity>();
@@ -44,6 +48,11 @@ namespace Domain
             }
 
             return entities;
+        }
+
+        public List<object> GetObjectsWhere(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToString()

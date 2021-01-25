@@ -37,25 +37,20 @@ namespace Forms
                 return;
             }
 
-            try
+           
+            Korisnik korisnik = Communication.Communication.Instance.Login(txtUsername.Text, txtPassword.Text);
+            if(korisnik != null)
             {
-                //Korisnik korisnik =Controller.Instance.Prijava(txtUsername.Text, txtPassword.Text);
-                Korisnik korisnik = Communication.Communication.Instance.Login(txtUsername.Text, txtPassword.Text);
-                //MessageBox.Show($"Dobrodosli, {Controller.Instance.LoggedInKorisnik.Username}");
                 FormMain frmMain = new FormMain();
                 this.Visible = false;
                 frmMain.ShowDialog();
                 this.Visible = true;
-                
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-                
+                MessageBox.Show("Korisnik sa datim username-om i password-om ne postoji!");
+                return;
             }
-
-
-            
 
         }
 

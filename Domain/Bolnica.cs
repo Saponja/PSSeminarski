@@ -32,7 +32,16 @@ namespace Domain
 
         public string JoinCondition2 => throw new NotImplementedException();
 
+        public string SelectColumnsWhere => throw new NotImplementedException();
+
+        public string Where => throw new NotImplementedException();
+
         public List<IEntity> GetEntities(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<object> GetObjectsWhere(SqlDataReader reader)
         {
             throw new NotImplementedException();
         }

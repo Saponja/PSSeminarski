@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SystemOperations;
 using SystemOperations.SODijagnoze;
+using SystemOperations.SOKorisnik;
 using SystemOperations.SOLekar;
 using SystemOperations.SOPacijent;
 using SystemOperations.SOPregled;
@@ -21,31 +22,18 @@ namespace ControllerB
 {
     public class Controller
     {
-        private IStorageKorisnici storageKorisnici;
-        private IStoragePacijent storagePacijent;
-        private IStorageLekari storageLekari;
-        private IStorageVrstaPregleda storageVrstaPregleda;
+        
         private SystemOperationsBase so;
 
         private IRepository repository;
 
         private static object _lock = new object();
 
-        public List<TipDijagnoze> GetTip()
-        {
-            return storageDijagnoza.GetTip();
-        }
-
-        private IStorageTermin storageTermin;
-        private IStorageDijagnoza storageDijagnoza;
         public Korisnik LoggedInKorisnik { get; set; }
 
         private static Controller controller;
 
-        public DateTime SledeciTermin(int pacijentID)
-        {
-            return storageTermin.SledeciTermin(pacijentID);
-        }
+
 
         public static Controller Instance
         {
@@ -67,32 +55,31 @@ namespace ControllerB
 
         private Controller()
         {
-            storageKorisnici = new StorageKorisnik();
-            storagePacijent = new StoragePacijent();
-            storageLekari = new StorageLekari();
-            storageVrstaPregleda = new StorageVrstaPregleda();
-            storageTermin = new StorageTermin();
-            storageDijagnoza = new StorageDijagnoza();
+            //storageKorisnici = new StorageKorisnik();
+            //storagePacijent = new StoragePacijent();
+            //storageLekari = new StorageLekari();
+            //storageVrstaPregleda = new StorageVrstaPregleda();
+            //storageTermin = new StorageTermin();
+            //storageDijagnoza = new StorageDijagnoza();
 
-            repository = new Repository();
+            //repository = new Repository();
 
 
         }
 
         public Korisnik Prijava(string username, string password)
         {
-            List<Korisnik> korisnici = storageKorisnici.GetAll();
-         
-            foreach(Korisnik k in korisnici)
+            so = new PrijavaKorisnikaSO();
+            Korisnik korisnik = new Korisnik { Username = username, Password = password };
+            so.ExecuteTemplate(entity: korisnik);
+            Korisnik prijavljen = (Korisnik)so.Result;
+            if(prijavljen != null)
             {
-                if(k.Username == username && k.Password == password)
-                {
-                    LoggedInKorisnik = k;
-                    return k;
-                }
+                LoggedInKorisnik = prijavljen;
+                return prijavljen;
             }
 
-            throw new Exception("Korisnik sa datim username-om ili password-om ne postoji");
+            return null;
         }
 
         public void SacuvajDijagnoze(List<Dijagnoza> dijagnoze)
@@ -100,6 +87,13 @@ namespace ControllerB
             so = new SacuvajDijagnozeSO();
             so.ExecuteTemplate(entities: dijagnoze.Cast<IEntity>().ToList());
             //repository.SaveMore(dijagnoze.Cast<IEntity>().ToList());
+        }
+
+        public DateTime SledeciTermin(string cond)
+        {
+            so = new SledeciTerminSO(cond);
+            so.ExecuteTemplate(entity: new Termin());
+            return (DateTime)so.Result;
         }
 
 
@@ -178,28 +172,19 @@ namespace ControllerB
             //return repository.GetAll(new TipDijagnoze()).Cast<TipDijagnoze>().ToList();
         }
 
-        public void SacuvajTermine(List<Termin> termini)
+        public List<Dijagnoza> PrikaziDijagnoze()
         {
-            storageTermin.SaveMore(termini);
-        }
-        public List<DateTime> VratiVremeTermina(Lekar lekar)
-        {
-            return storageTermin.GetVremeTermina(lekar);
+            so = new PrikazDijagnozeSO();
+            so.ExecuteTemplate(entity: new Dijagnoza());
+            return (List<Dijagnoza>)so.Result;
         }
 
-        public List<Dijagnoza> GetDijagnoze()
+        public List<DateTime> VratiVremeTermina(string cond = "")
         {
-            return storageDijagnoza.Get();
+            so = new PrikaziVremeTerminaSO(cond);
+            so.ExecuteTemplate(entity : new Termin());
+            return (List<DateTime>)so.Result;
         }
 
-        public List<DateTime> VratiVremeTermina()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SacuvajTermin(Termin termin)
-        {
-            storageTermin.Save(termin);
-        }
     }
 }

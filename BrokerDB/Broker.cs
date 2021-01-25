@@ -113,15 +113,6 @@ namespace BrokerDB
 
         }
 
-        public DateTime SledeciTermin(int pacijentId)
-        {
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"select max(Datum) from Termini where PacijentId = {pacijentId}";
-            DateTime.TryParse(command.ExecuteScalar().ToString(), out DateTime date);
-           
-            return date;
-        }
-
         public List<Pacijent> GetAllPacijenti()
         {
             List<Pacijent> pacijenti = new List<Pacijent>();
@@ -329,21 +320,7 @@ namespace BrokerDB
             command.ExecuteNonQuery();
         }
 
-        public List<DateTime> GetVremeTermina(Lekar lekar)
-        {
-            List<DateTime> datumi = new List<DateTime>();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = $"select FORMAT (Datum, 'dd.MM.yyyy HH:mm') as Datum from Termini inner join VrstaPregleda on (Termini.VrstaPregledaId = VrstaPregleda.Id) where VrstaPregleda.LekarId = {lekar.LekarID}";
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                string datumString = (string)reader["Datum"];
-                DateTime datum = DateTime.ParseExact(datumString, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None);
-                datumi.Add(datum);
-            }
-            reader.Close();
-            return datumi;
-        }
+
 
         public List<Termin> GetAllTermini()
         {
@@ -415,6 +392,18 @@ namespace BrokerDB
 
         }
 
+        public List<object> GetWhere(IEntity entity, string cond = "")
+        {
+            List<object> objects = new List<object>();
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"select {entity.SelectColumnsWhere} from {entity.TableName} {entity.TableAlias} {entity.JoinTable2} {entity.JoinCondition2} {cond}";
+            SqlDataReader reader = command.ExecuteReader();
+            objects = entity.GetObjectsWhere(reader);
+            reader.Close();
+            return objects;
+        }
+
         public int GetNewId(IEntity entity)
         {
             SqlCommand command = connection.CreateCommand();
@@ -460,6 +449,23 @@ namespace BrokerDB
             command.Transaction = transaction;
             command.CommandText = $"insert into {entity.TableName} values ({entity.InsertValues})";
             command.ExecuteNonQuery();
+        }
+
+
+        public object GetMax(IEntity entity, string cond = "")
+        {
+            SqlCommand command = connection.CreateCommand();
+            command.Transaction = transaction;
+            command.CommandText = $"select max({entity.IdColumn}) from {entity.TableName} {cond}";
+            object result = command.ExecuteScalar();
+            if (result is DBNull)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
 
     }

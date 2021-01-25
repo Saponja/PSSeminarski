@@ -19,6 +19,8 @@ namespace Common
         PrikazLekara,
         PrikazTermina,
         PrikazTipa,
-        
+        VratiVremeTermina,
+        PrikazDijagnoza,
+        SledeciTermin,
     }
 }

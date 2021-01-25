@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace Domain
         //POGLEDATI OVDE ZA INSERT VALUES public string InsertValues => $"{Pacijent.PacijentID}, {VrstaPregleda.PregledID}, '{DateTime}', {Cena}";
         public string InsertValues => $"{Pacijent.PacijentID}, {VrstaPregleda.PregledID}, '{DateTime}', {Cena}";
         [Browsable(false)]
-        public string IdColumn => "";
+        public string IdColumn => "Datum";
         [Browsable(false)]
         public string SelectColumns => "t.Datum tdat, t.Cena tcena, p.Id pid, p.Ime pime, p.Prezime pprezime," +
             " p.DatumRodjenja pdr, p.Hitan  phitan, p.Anamneza panam, p.SifraBolnice psb, vp.Id vpid, " +
@@ -38,6 +39,10 @@ namespace Domain
         public string JoinTable2 => "join VrstaPregleda vp";
         [Browsable(false)]
         public string JoinCondition2 => "on (t.VrstaPregledaId = vp.Id)";
+        [Browsable(false)]
+        public string SelectColumnsWhere => "FORMAT (Datum, 'dd.MM.yyyy HH:mm') as Datum";
+        [Browsable(false)]
+        public string Where => $"";
 
         public List<IEntity> GetEntities(SqlDataReader reader)
         {
@@ -78,6 +83,17 @@ namespace Domain
             return entities;
         }
 
+        public List<object> GetObjectsWhere(SqlDataReader reader)
+        {
+            List<object> objects = new List<object>();
+            while (reader.Read())
+            {
+                string datumString = (string)reader["Datum"];
+                DateTime datum = DateTime.ParseExact(datumString, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                objects.Add(datum);
+            }
 
+            return objects;
+        }
     }
 }

@@ -67,7 +67,11 @@ namespace Domain
             return entities;
         }
 
-        
+        public List<object> GetObjectsWhere(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public Pacijent Self { get { return this; } }
 
         [Browsable(false)]
@@ -89,5 +93,9 @@ namespace Domain
         public string JoinTable2 => "";
         [Browsable(false)]
         public string JoinCondition2 => "";
+
+        public string SelectColumnsWhere => "";
+
+        public string Where => "";
     }
 }

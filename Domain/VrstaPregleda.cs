@@ -50,6 +50,11 @@ namespace Domain
             return entities;
         }
 
+        public List<object> GetObjectsWhere(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
         public VrstaPregleda Self { get { return this; } }
         [Browsable(false)]
         public string TableName => "VrstaPregleda";
@@ -70,5 +75,9 @@ namespace Domain
         public string JoinTable2 => "join Bolnice b";
         [Browsable(false)]
         public string JoinCondition2 => "on (l.SifraBolnice = b.Id)";
+
+        public string SelectColumnsWhere => "";
+
+        public string Where => "";
     }
 }

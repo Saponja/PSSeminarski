@@ -51,7 +51,12 @@ namespace Server
                 case Operation.Login:
                     Korisnik korisnik = (Korisnik)request.Data;
                     response.Result = Controller.Instance.Prijava(korisnik.Username, korisnik.Password);
-                    server.Users.Add((Korisnik)response.Result);
+
+                    if ((Korisnik)response.Result != null)
+                    {
+                        server.Users.Add((Korisnik)response.Result);
+                    }
+
                     break;
                 case Operation.PrikazPacijenata:
                     response.Result = Controller.Instance.PrikaziPacijente();
@@ -136,6 +141,15 @@ namespace Server
                     break;
                 case Operation.PrikazTipa:
                     response.Result = Controller.Instance.PrikazTipa();
+                    break;
+                case Operation.VratiVremeTermina:
+                    response.Result = Controller.Instance.VratiVremeTermina(request.Data.ToString());
+                    break;
+                case Operation.PrikazDijagnoza:
+                    response.Result = Controller.Instance.PrikaziDijagnoze();
+                    break;
+                case Operation.SledeciTermin:
+                    response.Result = Controller.Instance.SledeciTermin(request.Data.ToString());
                     break;
                 default:
                     break;

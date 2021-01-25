@@ -25,6 +25,22 @@ namespace Forms.Communication
             return (List<VrstaPregleda>)response.Result;
         }
 
+        internal DateTime SledeciTermin(string cond)
+        {
+            Request request = new Request { Operation = Operation.SledeciTermin, Data = cond };
+            sender.Send(request);
+            Response response = receiver.Receive();
+            return (DateTime)response.Result;
+        }
+
+        internal List<Dijagnoza> PrikaziDijagnoze()
+        {
+            Request request = new Request { Operation = Operation.PrikazDijagnoza };
+            sender.Send(request);
+            Response response = receiver.Receive();
+            return (List<Dijagnoza>)response.Result;
+        }
+
         internal List<TipDijagnoze> PrikaziTip()
         {
             Request request = new Request { Operation = Operation.PrikazTipa };
@@ -127,6 +143,15 @@ namespace Forms.Communication
             Request request = new Request { Operation = Operation.ZakazivanjeTermina, Data = termini };
             sender.Send(request);
             Response response = receiver.Receive();
+        }
+
+        internal List<DateTime> VratiVremeTermina(string cond)
+        {
+            Request request = new Request { Operation = Operation.VratiVremeTermina, Data = cond };
+            sender.Send(request);
+            Response response = receiver.Receive();
+            return (List<DateTime>)response.Result;
+
         }
     }
 }

@@ -19,6 +19,11 @@ namespace Domain
         string JoinTable2 { get; }
         string JoinCondition2 { get; }
 
+        string SelectColumnsWhere { get; }
+        string Where { get; }
+        
         List<IEntity> GetEntities(SqlDataReader reader);
+
+        List<object> GetObjectsWhere(SqlDataReader reader);
     }
 }

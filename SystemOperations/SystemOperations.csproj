@@ -43,14 +43,17 @@
   <ItemGroup>
     <Compile Include="SODijagnoze\PrikazDijagnozeSO.cs" />
     <Compile Include="SODijagnoze\SacuvajDijagnozeSO.cs" />
+    <Compile Include="SOKorisnik\PrijavaKorisnikaSO.cs" />
     <Compile Include="SOLekar\PrikazLekaraSO.cs" />
     <Compile Include="SOPacijent\ObrisiPacijentaSO.cs" />
     <Compile Include="SOPacijent\PrikaziPacijenteSO.cs" />
     <Compile Include="SOPacijent\SacuvajPacijentaSO.cs" />
     <Compile Include="SOPregled\PrikazPregledaSO.cs" />
     <Compile Include="SOPregled\SacuvajPregledSO.cs" />
+    <Compile Include="SOTermin\PrikaziVremeTerminaSO.cs" />
     <Compile Include="SOTermin\PrikazTerminaSO.cs" />
     <Compile Include="SOTermin\SacuvajTerminSO.cs" />
+    <Compile Include="SOTermin\SledeciTerminSO.cs" />
     <Compile Include="SOTip\PrikazTipaSO.cs" />
     <Compile Include="SystemOperationsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
