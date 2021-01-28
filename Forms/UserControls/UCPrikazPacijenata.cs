@@ -103,13 +103,17 @@ namespace Forms.UserControls
                         brojac = brojac + 1;
                         listaKojaSeMenja.Remove(pacijent);
                     }
-                    Communication.Communication.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
+                    if(!Communication.Communication.Instance.DeletePacijent(pacijent, pacijent.PacijentID))
+                    {
+                        MessageBox.Show("Pacijent ima zakazan termin, ili dijagnozu koja je postavljena");
+                        KreirajUC(osnovnaLista);
+                    }
                 }
                 osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
 
                 if (brojac == listaZaBrisanje.Count)
                 {
-                    KreirajUC(listaKojaSeMenja);
+                    KreirajUC(osnovnaLista);
                 }
                 else
                 {

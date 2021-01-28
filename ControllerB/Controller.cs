@@ -62,7 +62,7 @@ namespace ControllerB
             //storageTermin = new StorageTermin();
             //storageDijagnoza = new StorageDijagnoza();
 
-            //repository = new Repository();
+            repository = new Repository();
 
 
         }
@@ -123,10 +123,11 @@ namespace ControllerB
             
         }
 
-        public void DeletePacijent(Pacijent pacijent, int id)
+        public bool DeletePacijent(Pacijent pacijent, int id)
         {
             so = new ObrisiPacijentaSO();
             so.ExecuteTemplate(entity: pacijent);
+            return so.Successful;
             //repository.Delete(pacijent, id);
         }
 

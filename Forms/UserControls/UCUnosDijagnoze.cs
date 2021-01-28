@@ -26,22 +26,33 @@ namespace Forms.UserControls
         {
             UnosDijagnozeDialogs dialog = new UnosDijagnozeDialogs();
             dialog.ShowDialog();
-            Dijagnoza dijagnoza = new Dijagnoza
+            if(dialog.Pacijent != null && dialog.Tip != null && dialog.Datum != null)
             {
-                Datum = dialog.Datum,
-                Pacijent = dialog.Pacijent,
-                TipDijagnoze = dialog.Tip,
-                PacijentId = dialog.Pacijent.PacijentID,
-                DijagnozaId = dialog.Tip.DijagnozaID
-            };
-            dijagnoze.Add(dijagnoza);
-            dgvDijagnoze.DataSource = dijagnoze;
+                Dijagnoza dijagnoza = new Dijagnoza
+                {
+                    Datum = dialog.Datum,
+                    Pacijent = dialog.Pacijent,
+                    TipDijagnoze = dialog.Tip,
+                    PacijentId = dialog.Pacijent.PacijentID,
+                    DijagnozaId = dialog.Tip.DijagnozaID
+                };
+                dijagnoze.Add(dijagnoza);
+                dgvDijagnoze.DataSource = dijagnoze;
 
+            }
         }
 
         private void btnUnesi_Click(object sender, EventArgs e)
         {
-           Communication.Communication.Instance.SacuvajDijagnozu(dijagnoze.ToList());
+            if(dijagnoze.Count > 0)
+            {
+                Communication.Communication.Instance.SacuvajDijagnozu(dijagnoze.ToList());
+            }
+            else
+            {
+                MessageBox.Show("Morate uneti neku dijagnozu");
+            }
+           
         }
     }
 }

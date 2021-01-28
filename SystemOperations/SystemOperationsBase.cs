@@ -19,6 +19,7 @@ namespace SystemOperations
 
         
         public object Result { get; set; }
+        public bool Successful { get; set; }
         public void ExecuteTemplate(IEntity entity = null, List<IEntity> entities = null)
         {
             try
@@ -38,9 +39,11 @@ namespace SystemOperations
                 }
 
                 broker.Commit();
+                Successful = true;
             }
             catch (Exception)
             {
+                Successful = false;
                 broker.Rollback();
                 
             }

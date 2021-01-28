@@ -19,6 +19,7 @@ namespace Forms.UserControls
         private BindingList<Termin> termini = new BindingList<Termin>(Communication.Communication.Instance.PrikaziTermine());
         private BindingList<Termin> listaTermina = new BindingList<Termin>();
         private bool isset = false;
+        public string Lekar { get; set; }
 
         public ZakazivanjeTermina()
         {
@@ -38,6 +39,7 @@ namespace Forms.UserControls
             List<Pacijent> pacijenti = Communication.Communication.Instance.PrikaziPacijente();
 
             Lekar lekar = (Lekar)cbLekari.SelectedItem;
+            Lekar = lekar.Ime;
             pregledi = pregledi.Where(p => p.Lekar.LekarID == lekar.LekarID).ToList();
             pacijenti = pacijenti.Where(p => p.Bolnica.SifraBolnice == lekar.Bolnica.SifraBolnice).ToList();
 
@@ -90,13 +92,13 @@ namespace Forms.UserControls
 
         private void cbLekari_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            cbLekari.Enabled = false;
+            //cbLekari.Enabled = false;
             ChangeDataGridView();
         }
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
-            //Provera da li je termin zauzet za tog lekara
+            
 
             if (!UserControlHelpers.EmptyFieldValidation(txtDate) && DateTime.TryParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
             {
@@ -124,8 +126,9 @@ namespace Forms.UserControls
             
 
             Communication.Communication.Instance.SacuvajTermine(termini);
+            MessageBox.Show($"Upseno ste zakazali termine za {Lekar}");
 
-            
+
 
             UserControlHelpers.KreirajUC(new ZakazivanjeTermina(), this);
         }

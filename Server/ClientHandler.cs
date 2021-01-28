@@ -122,8 +122,16 @@ namespace Server
                     try
                     {
                         Pacijent pacijent = (Pacijent)request.Data;
-                        Controller.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
-                        response.IsSuccessful = true;
+                        bool scs = Controller.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
+                        if (scs)
+                        {
+                            response.IsSuccessful = true;
+                        }
+                        else
+                        {
+                            response.IsSuccessful = false;
+
+                        }
                     }
                     catch (Exception ex)
                     {

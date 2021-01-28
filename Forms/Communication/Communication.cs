@@ -131,11 +131,12 @@ namespace Forms.Communication
             receiver = new Receiver(socket);
         }
 
-        internal void DeletePacijent(Pacijent pacijent, int id)
+        internal bool DeletePacijent(Pacijent pacijent, int id)
         {
             Request request = new Request { Operation = Operation.BrisanjePacijenta, Data = pacijent };
             sender.Send(request);
             Response response = receiver.Receive();
+            return response.IsSuccessful;
         }
 
         internal void SacuvajTermine(List<Termin> termini)
