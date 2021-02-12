@@ -75,9 +75,9 @@ namespace Domain
         public string JoinTable2 => "join Bolnice b";
         [Browsable(false)]
         public string JoinCondition2 => "on (l.SifraBolnice = b.Id)";
-
+        [Browsable(false)]
         public string SelectColumnsWhere => "";
-
+        [Browsable(false)]
         public string Where => "";
     }
 }

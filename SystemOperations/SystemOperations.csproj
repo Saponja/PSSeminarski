@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SOBolnice\PrikazBolnicaSO.cs" />
     <Compile Include="SODijagnoze\PrikazDijagnozeSO.cs" />
     <Compile Include="SODijagnoze\SacuvajDijagnozeSO.cs" />
     <Compile Include="SOKorisnik\PrijavaKorisnikaSO.cs" />

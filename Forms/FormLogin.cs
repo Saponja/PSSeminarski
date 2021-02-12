@@ -30,7 +30,7 @@ namespace Forms
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            
+            main.Connect();
 
             if (UserControlHelpers.EmptyFieldValidation(txtUsername) | UserControlHelpers.EmptyFieldValidation(txtPassword))
             {
@@ -41,10 +41,19 @@ namespace Forms
             Korisnik korisnik = Communication.Communication.Instance.Login(txtUsername.Text, txtPassword.Text);
             if(korisnik != null)
             {
-                FormMain frmMain = new FormMain();
-                this.Visible = false;
-                frmMain.ShowDialog();
-                this.Visible = true;
+                if(korisnik.KorisnikId != -1)
+                {
+                    MessageBox.Show("Uspesno ste se ulogovali");
+                    FormMain frmMain = new FormMain();
+                    this.Visible = false;
+                    frmMain.ShowDialog();
+                    this.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Korisnik sa datim usernamom je vec prijavljen");
+                }
+                
             }
             else
             {
@@ -57,7 +66,7 @@ namespace Forms
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
-            main.Connect();
+            //main.Connect();
         }
     }
 }

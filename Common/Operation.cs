@@ -22,5 +22,7 @@ namespace Common
         VratiVremeTermina,
         PrikazDijagnoza,
         SledeciTermin,
+        PrikazBolnica,
+        Logout,
     }
 }

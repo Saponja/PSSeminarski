@@ -53,6 +53,7 @@
     <Compile Include="Dialogs\UnosDijagnozeDialogs.Designer.cs">
       <DependentUpon>UnosDijagnozeDialogs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\ServerException.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +87,12 @@
     </Compile>
     <Compile Include="UserControls\UCPrikazPregleda.Designer.cs">
       <DependentUpon>UCPrikazPregleda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCPrikazTermina.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCPrikazTermina.Designer.cs">
+      <DependentUpon>UCPrikazTermina.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCUnosDijagnoze.cs">
       <SubType>UserControl</SubType>
@@ -137,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCPrikazPregleda.resx">
       <DependentUpon>UCPrikazPregleda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCPrikazTermina.resx">
+      <DependentUpon>UCPrikazTermina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCUnosDijagnoze.resx">
       <DependentUpon>UCUnosDijagnoze.cs</DependentUpon>

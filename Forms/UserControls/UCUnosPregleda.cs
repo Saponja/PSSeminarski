@@ -31,25 +31,49 @@ namespace Forms.UserControls
 
         private void btnSacuvaj_Click(object sender, EventArgs e)
         {
-
-            VrstaPregleda pregled = new VrstaPregleda()
+            if(!UserControlHelpers.EmptyFieldValidation(txtNaziv) & !UserControlHelpers.EmptyFieldValidation(txtOblast) 
+                && dgvLekari.SelectedRows.Count == 1)
             {
-                Naziv = txtNaziv.Text,
-                Oblast = txtOblast.Text,
-                Lekar = (Lekar)dgvLekari.SelectedRows[0].DataBoundItem
-            };
+                if (!UserControlHelpers.HasNumberOrSymbol(txtIme) && !UserControlHelpers.HasNumberOrSymbol(txtPrezime))
+                {
+                    VrstaPregleda pregled = new VrstaPregleda()
+                    {
+                        Naziv = txtNaziv.Text,
+                        Oblast = txtOblast.Text,
+                        Lekar = (Lekar)dgvLekari.SelectedRows[0].DataBoundItem
+                    };
 
-            Communication.Communication.Instance.SacuvajVrstuPregleda(pregled);
+                    if (Communication.Communication.Instance.SacuvajVrstuPregleda(pregled))
+                    {
+                        MessageBox.Show("Novi pregled je uspesno sacuvan");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Dati tip pregleda vec postoji");
+                    }
 
-            DialogResult result = MessageBox.Show("", "Da li zelite da uneste jos pregleda?", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                UserControlHelpers.KreirajUC(new UCUnosPregleda(), this);
+                    DialogResult result = MessageBox.Show("", "Da li zelite da uneste jos pregleda?", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        UserControlHelpers.KreirajUC(new UCUnosPregleda(), this);
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        this.Visible = false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Naziv i oblast ne smeju da sadrze cifre");
+                }
+
+                
             }
-            else if (result == DialogResult.No)
+            else
             {
-                this.Visible = false;
+                MessageBox.Show("Popunite sva polja i izaberite jednog lekara!");
             }
+            
         }
 
         

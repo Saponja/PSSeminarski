@@ -160,9 +160,10 @@
             // 
             // rtbAnamneza
             // 
-            this.rtbAnamneza.Location = new System.Drawing.Point(163, 363);
+            this.rtbAnamneza.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.rtbAnamneza.Location = new System.Drawing.Point(184, 353);
             this.rtbAnamneza.Name = "rtbAnamneza";
-            this.rtbAnamneza.Size = new System.Drawing.Size(242, 136);
+            this.rtbAnamneza.Size = new System.Drawing.Size(221, 82);
             this.rtbAnamneza.TabIndex = 12;
             this.rtbAnamneza.Text = "";
             // 
@@ -196,7 +197,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "UCUnosPacijenta";
-            this.Size = new System.Drawing.Size(734, 528);
+            this.Size = new System.Drawing.Size(734, 523);
             this.ResumeLayout(false);
             this.PerformLayout();
 

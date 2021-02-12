@@ -18,6 +18,8 @@ namespace Forms.UserControls
     {
         private BindingList<Termin> termini = new BindingList<Termin>(Communication.Communication.Instance.PrikaziTermine());
         private BindingList<Termin> listaTermina = new BindingList<Termin>();
+        private List<DateTime> trenutniTermini = new List<DateTime>();
+        
         private bool isset = false;
         public string Lekar { get; set; }
 
@@ -92,7 +94,7 @@ namespace Forms.UserControls
 
         private void cbLekari_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            //cbLekari.Enabled = false;
+            cbLekari.Enabled = false;
             ChangeDataGridView();
         }
 
@@ -102,12 +104,16 @@ namespace Forms.UserControls
 
             if (!UserControlHelpers.EmptyFieldValidation(txtDate) && DateTime.TryParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
             {
+                
+
+
                 if (SlobodanTerminLekara((Lekar)cbLekari.SelectedItem, date))
                 {
-                listaTermina.Add(new Termin
-                {
-                    DateTime = DateTime.ParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
-                });
+                    trenutniTermini.Add(date);
+                    listaTermina.Add(new Termin
+                    {
+                        DateTime = DateTime.ParseExact(txtDate.Text, "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture)
+                    });
                 }
             }
             else
@@ -118,19 +124,42 @@ namespace Forms.UserControls
 
         private void btnZakazi_Click(object sender, EventArgs e)
         {
+            bool popunjeno = true;
+            
             List<Termin> termini = new List<Termin>();
             foreach (DataGridViewRow row in dgvTermini.Rows)
             {
-                termini.Add((Termin)row.DataBoundItem);
+                Termin termin = (Termin)row.DataBoundItem;
+                if(termin.Pacijent == null || termin.VrstaPregleda == null)
+                {
+                    popunjeno = false;
+                }
+                termini.Add(termin);
+            }
+
+
+            if (popunjeno)
+            {
+                if (Communication.Communication.Instance.SacuvajTermine(termini))
+                {
+                    MessageBox.Show($"Upseno ste zakazali termine za {Lekar}");
+                }
+                else
+                {
+                    MessageBox.Show($"{Lekar} ima vec taj termin zakazan za datog pacijenta");
+                }
+                
+                UserControlHelpers.KreirajUC(new ZakazivanjeTermina(), this);
+            }
+            else
+            {
+                MessageBox.Show("Unesite sve informacije o pregledu!");
             }
             
 
-            Communication.Communication.Instance.SacuvajTermine(termini);
-            MessageBox.Show($"Upseno ste zakazali termine za {Lekar}");
 
 
-
-            UserControlHelpers.KreirajUC(new ZakazivanjeTermina(), this);
+            
         }
 
         private bool SlobodanTerminLekara(Lekar lekar, DateTime date)
@@ -150,6 +179,17 @@ namespace Forms.UserControls
             }
 
             foreach (DateTime d in Communication.Communication.Instance.VratiVremeTermina($"where vp.LekarId = {lekar.LekarID}"))
+            {
+                if (date.Equals(d))
+                {
+                    MessageBox.Show("Termin je zauzet pokusajte sa novim!");
+                    txtDate.BackColor = Color.LightCoral;
+                    txtDate.Text = date.AddHours(1).ToString("dd.MM.yyyy HH:mm");
+                    return false;
+                }
+            }
+
+            foreach (DateTime d in trenutniTermini)
             {
                 if (date.Equals(d))
                 {

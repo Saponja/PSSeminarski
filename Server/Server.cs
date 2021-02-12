@@ -59,6 +59,7 @@ namespace Server
         internal void Stop()
         {
             listener.Close();
+            Users.Clear();
             foreach (ClientHandler client in clients)
             {
                 client.Stop();

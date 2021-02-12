@@ -36,8 +36,10 @@
             this.unesiPregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preglediToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zakaziPregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlGlavni = new System.Windows.Forms.Panel();
+            this.zakaziPregledToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.terminiLekaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dodajDijagnozeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlGlavni = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,17 +105,26 @@
             // 
             // zakaziPregledToolStripMenuItem
             // 
+            this.zakaziPregledToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zakaziPregledToolStripMenuItem1,
+            this.terminiLekaraToolStripMenuItem});
             this.zakaziPregledToolStripMenuItem.Name = "zakaziPregledToolStripMenuItem";
-            this.zakaziPregledToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
-            this.zakaziPregledToolStripMenuItem.Text = "Zakazi pregled";
-            this.zakaziPregledToolStripMenuItem.Click += new System.EventHandler(this.zakaziPregledToolStripMenuItem_Click);
+            this.zakaziPregledToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
+            this.zakaziPregledToolStripMenuItem.Text = "Termini";
             // 
-            // pnlGlavni
+            // zakaziPregledToolStripMenuItem1
             // 
-            this.pnlGlavni.Location = new System.Drawing.Point(0, 31);
-            this.pnlGlavni.Name = "pnlGlavni";
-            this.pnlGlavni.Size = new System.Drawing.Size(839, 472);
-            this.pnlGlavni.TabIndex = 1;
+            this.zakaziPregledToolStripMenuItem1.Name = "zakaziPregledToolStripMenuItem1";
+            this.zakaziPregledToolStripMenuItem1.Size = new System.Drawing.Size(191, 26);
+            this.zakaziPregledToolStripMenuItem1.Text = "Zakazi pregled";
+            this.zakaziPregledToolStripMenuItem1.Click += new System.EventHandler(this.zakaziPregledToolStripMenuItem1_Click);
+            // 
+            // terminiLekaraToolStripMenuItem
+            // 
+            this.terminiLekaraToolStripMenuItem.Name = "terminiLekaraToolStripMenuItem";
+            this.terminiLekaraToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.terminiLekaraToolStripMenuItem.Text = "Termini lekara";
+            this.terminiLekaraToolStripMenuItem.Click += new System.EventHandler(this.terminiLekaraToolStripMenuItem_Click);
             // 
             // dodajDijagnozeToolStripMenuItem
             // 
@@ -121,6 +132,13 @@
             this.dodajDijagnozeToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
             this.dodajDijagnozeToolStripMenuItem.Text = "Dodaj dijagnoze";
             this.dodajDijagnozeToolStripMenuItem.Click += new System.EventHandler(this.dodajDijagnozeToolStripMenuItem_Click);
+            // 
+            // pnlGlavni
+            // 
+            this.pnlGlavni.Location = new System.Drawing.Point(0, 31);
+            this.pnlGlavni.Name = "pnlGlavni";
+            this.pnlGlavni.Size = new System.Drawing.Size(839, 472);
+            this.pnlGlavni.TabIndex = 1;
             // 
             // FormMain
             // 
@@ -131,7 +149,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
-            this.Text = "Main";
+            this.Text = "Klinika";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -151,5 +170,7 @@
         private System.Windows.Forms.Panel pnlGlavni;
         private System.Windows.Forms.ToolStripMenuItem zakaziPregledToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dodajDijagnozeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zakaziPregledToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem terminiLekaraToolStripMenuItem;
     }
 }

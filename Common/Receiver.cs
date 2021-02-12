@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -24,7 +25,12 @@ namespace Common
 
         public Response Receive()
         {
-            return (Response)formatter.Deserialize(stream);
+            
+             return (Response)formatter.Deserialize(stream);
+            
+            
+            
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Forms.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,16 @@ namespace Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+
+            try
+            {
+                Application.Run(new FormLogin());
+            }
+            catch (ServerException)
+            {
+                MessageBox.Show("Server je ugasen");
+            }
+            
         }
     }
 }

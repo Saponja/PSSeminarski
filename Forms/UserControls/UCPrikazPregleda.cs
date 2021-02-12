@@ -14,11 +14,15 @@ namespace Forms.UserControls
 {
     public partial class UCPrikazPregleda : UserControl
     {
-        private static List<VrstaPregleda> osnovnaLista = Communication.Communication.Instance.PrikaziPreglede();
-        private static List<VrstaPregleda> listaKojaSeMenja = osnovnaLista;
+        private static List<VrstaPregleda> osnovnaLista = new List<VrstaPregleda>();
+        private static List<VrstaPregleda> listaKojaSeMenja = new List<VrstaPregleda>();
+        //private static List<VrstaPregleda> osnovnaLista = Communication.Communication.Instance.PrikaziPreglede();
+        //private static List<VrstaPregleda> listaKojaSeMenja = osnovnaLista;
         public UCPrikazPregleda()
         {
             InitializeComponent();
+            osnovnaLista = Communication.Communication.Instance.PrikaziPreglede();
+            listaKojaSeMenja = osnovnaLista;
             dgvPregledi.DataSource = osnovnaLista;
         }
 

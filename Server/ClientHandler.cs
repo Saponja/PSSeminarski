@@ -16,6 +16,7 @@ namespace Server
     {
         private Socket client;
         private Server server;
+        private bool kraj = false;
         public ClientHandler(Socket client, Server server)
         {
             this.client = client;
@@ -28,12 +29,13 @@ namespace Server
             {
                 NetworkStream stream = new NetworkStream(client);
                 BinaryFormatter formatter = new BinaryFormatter();
-                while (true)
+                while (!kraj)
                 {
                     Request request = (Request)formatter.Deserialize(stream);
                     Response response = ProcessRequest(request);
-                    formatter.Serialize(stream, response);
+                    formatter.Serialize(stream, response); 
                 }
+                client.Close();
             }
             catch (IOException ex)
             {
@@ -52,7 +54,12 @@ namespace Server
                     Korisnik korisnik = (Korisnik)request.Data;
                     response.Result = Controller.Instance.Prijava(korisnik.Username, korisnik.Password);
 
-                    if ((Korisnik)response.Result != null)
+                    if (server.Users.Any(u => u.Username == ((Korisnik)response.Result).Username))
+                    {
+                        response.Result = new Korisnik { KorisnikId = -1 };
+                    }
+
+                    if ((Korisnik)response.Result != null && ((Korisnik)response.Result).KorisnikId != -1)
                     {
                         server.Users.Add((Korisnik)response.Result);
                     }
@@ -65,80 +72,73 @@ namespace Server
                     response.Result = Controller.Instance.prikaziPreglede();
                     break;
                 case Operation.UnosDijagnoze:
-                    try
+
+                    List<Dijagnoza> dijagnoze = (List<Dijagnoza>)request.Data;
+                    if (Controller.Instance.SacuvajDijagnoze(dijagnoze))
                     {
-                        List<Dijagnoza> dijagnoze = (List<Dijagnoza>)request.Data;
-                        Controller.Instance.SacuvajDijagnoze(dijagnoze);
                         response.IsSuccessful = true;
                     }
-                    catch (Exception)
+                    else
                     {
                         response.IsSuccessful = false;
-                        throw;
                     }
+
+
+
                     break;
                 case Operation.UnosPacijenta:
-                    try
+                    Pacijent pacijent = (Pacijent)request.Data;
+                    if (Controller.Instance.SacuvajPacijenta(pacijent))
                     {
-                        Pacijent pacijent = (Pacijent)request.Data;
-                        Controller.Instance.SacuvajPacijenta(pacijent);
                         response.IsSuccessful = true;
                     }
-                    catch (Exception)
+                    else
                     {
                         response.IsSuccessful = false;
-                        throw;
                     }
+
                     break;
                 case Operation.UnosPregleda:
-                    try
+                    VrstaPregleda pregled = (VrstaPregleda)request.Data;
+
+                    if (Controller.Instance.SacuvajVrstuPregleda(pregled))
                     {
-                        VrstaPregleda pregled = (VrstaPregleda)request.Data;
-                        Controller.Instance.SacuvajVrstuPregleda(pregled);
                         response.IsSuccessful = true;
                     }
-                    catch (Exception)
+                    else
                     {
                         response.IsSuccessful = false;
-                        throw;
                     }
 
                     break;
                 case Operation.ZakazivanjeTermina:
-                    try
+                    List<Termin> termini = (List<Termin>)request.Data;
+
+                    if (Controller.Instance.ZakazivanjeTermina(termini))
                     {
-                        List<Termin> termini = (List<Termin>)request.Data;
-                        Controller.Instance.ZakazivanjeTermina(termini);
                         response.IsSuccessful = true;
+
                     }
-                    catch (Exception ex)
+                    else
                     {
                         response.IsSuccessful = false;
-                        response.Error = ex.Message;
-
                     }
                     break;
                 case Operation.BrisanjePacijenta:
-                    try
-                    {
-                        Pacijent pacijent = (Pacijent)request.Data;
-                        bool scs = Controller.Instance.DeletePacijent(pacijent, pacijent.PacijentID);
-                        if (scs)
-                        {
-                            response.IsSuccessful = true;
-                        }
-                        else
-                        {
-                            response.IsSuccessful = false;
 
-                        }
+                    Pacijent pacijentbr = (Pacijent)request.Data;
+                    bool scs = Controller.Instance.DeletePacijent(pacijentbr, pacijentbr.PacijentID);
+                    if (scs)
+                    {
+                        response.IsSuccessful = true;
                     }
-                    catch (Exception ex)
+                    else
                     {
                         response.IsSuccessful = false;
-                        response.Error = ex.Message;
 
                     }
+
+
 
                     break;
                 case Operation.PrikazLekara:
@@ -159,6 +159,22 @@ namespace Server
                 case Operation.SledeciTermin:
                     response.Result = Controller.Instance.SledeciTermin(request.Data.ToString());
                     break;
+                case Operation.PrikazBolnica:
+                    response.Result = Controller.Instance.PrikaziBolnice();
+                    break;
+                case Operation.Logout:
+                    Korisnik loggedInKorisnik = (Korisnik)request.Data;
+                    foreach (Korisnik k in server.Users)
+                    {
+                        if(loggedInKorisnik.KorisnikId == k.KorisnikId)
+                        {
+                            server.Users.Remove(k);
+                            break;
+                        }
+                    }
+                    response.Result = new object { };
+                    kraj = true;
+                    break;
                 default:
                     break;
             }
@@ -168,6 +184,7 @@ namespace Server
 
         internal void Stop()
         {
+            kraj = true;
             client.Close();
         }
     }

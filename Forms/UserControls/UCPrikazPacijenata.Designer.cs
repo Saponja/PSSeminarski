@@ -53,6 +53,7 @@
             this.dgvPacijenti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPacijenti.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvPacijenti.Location = new System.Drawing.Point(0, 173);
+            this.dgvPacijenti.MultiSelect = false;
             this.dgvPacijenti.Name = "dgvPacijenti";
             this.dgvPacijenti.RowHeadersWidth = 51;
             this.dgvPacijenti.RowTemplate.Height = 24;

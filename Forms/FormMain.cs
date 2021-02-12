@@ -1,4 +1,5 @@
 ﻿using ControllerB;
+using Forms.Exceptions;
 using Forms.UserControls;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,12 @@ namespace Forms
 
         private void KreirajUC(UserControl userControl)
         {
+            
             pnlGlavni.Controls.Clear();
             userControl.Parent = pnlGlavni;
             userControl.Dock = DockStyle.Fill;
+            
+            
         }
 
         private void unesiPacijentaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -47,17 +51,31 @@ namespace Forms
 
         private void preglediToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             KreirajUC(new UCPrikazPregleda());
-        }
-
-        private void zakaziPregledToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            KreirajUC(new ZakazivanjeTermina());
+            
+          
+            
         }
 
         private void dodajDijagnozeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             KreirajUC(new UCUnosDijagnoze());
+        }
+
+        private void zakaziPregledToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new ZakazivanjeTermina());
+        }
+
+        private void terminiLekaraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KreirajUC(new UCPrikazTermina());
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Communication.Communication.Instance.Logout();
         }
     }
 }

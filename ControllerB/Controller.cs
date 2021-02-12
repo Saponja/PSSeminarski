@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SystemOperations;
+using SystemOperations.SOBolnice;
 using SystemOperations.SODijagnoze;
 using SystemOperations.SOKorisnik;
 using SystemOperations.SOLekar;
@@ -82,10 +83,11 @@ namespace ControllerB
             return null;
         }
 
-        public void SacuvajDijagnoze(List<Dijagnoza> dijagnoze)
+        public bool SacuvajDijagnoze(List<Dijagnoza> dijagnoze)
         {
             so = new SacuvajDijagnozeSO();
             so.ExecuteTemplate(entities: dijagnoze.Cast<IEntity>().ToList());
+            return so.Successful;
             //repository.SaveMore(dijagnoze.Cast<IEntity>().ToList());
         }
 
@@ -97,12 +99,13 @@ namespace ControllerB
         }
 
 
-        public void SacuvajPacijenta(Pacijent pacijent)
+        public bool SacuvajPacijenta(Pacijent pacijent)
         {
             
             so = new SacuvajPacijentaSO();
             pacijent.PacijentID = repository.GetNewId(new Pacijent());
             so.ExecuteTemplate(entity: pacijent);
+            return so.Successful;
             //repository.Save(pacijent);
 
         }
@@ -115,10 +118,11 @@ namespace ControllerB
             //return repository.GetAll(new Pacijent()).Cast<Pacijent>().ToList();
         }
 
-        public void ZakazivanjeTermina(List<Termin> termini)
+        public bool ZakazivanjeTermina(List<Termin> termini)
         {
             so = new SacuvajTerminSO();
             so.ExecuteTemplate(entities: termini.Cast<IEntity>().ToList());
+            return so.Successful;
             //repository.SaveMore(termini.Cast<IEntity>().ToList());
             
         }
@@ -139,11 +143,12 @@ namespace ControllerB
             //return repository.GetAll(new Lekar()).Cast<Lekar>().ToList();
         }
 
-        public void SacuvajVrstuPregleda(VrstaPregleda pregled)
+        public bool SacuvajVrstuPregleda(VrstaPregleda pregled)
         {
             so = new SacuvajPregledSO();
             pregled.PregledID = repository.GetNewId(pregled);
             so.ExecuteTemplate(entity: pregled);
+            return so.Successful;
             //repository.Save(pregled);
         }
 
@@ -187,5 +192,12 @@ namespace ControllerB
             return (List<DateTime>)so.Result;
         }
 
+        public List<Bolnica> PrikaziBolnice()
+        {
+            so = new PrikazBolnicaSO();
+            so.ExecuteTemplate(entity: new Bolnica());
+            return (List<Bolnica>)so.Result;
+
+        }
     }
 }

@@ -46,7 +46,15 @@ namespace Forms.UserControls
         {
             if(dijagnoze.Count > 0)
             {
-                Communication.Communication.Instance.SacuvajDijagnozu(dijagnoze.ToList());
+                if (Communication.Communication.Instance.SacuvajDijagnozu(dijagnoze.ToList()))
+                {
+                    MessageBox.Show("Uspesno ste uneli dijagnoze");
+                }
+                else
+                {
+                    MessageBox.Show("Neka od dijagnoza je vec postavljena");
+                }
+                
             }
             else
             {

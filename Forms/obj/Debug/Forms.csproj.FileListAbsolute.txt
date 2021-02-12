@@ -30,3 +30,4 @@ C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\Common.dll
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\Common.pdb
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\SystemOperations.dll
 C:\Users\Admin\source\repos\PSSeminarski\Forms\bin\Debug\SystemOperations.pdb
+C:\Users\Admin\source\repos\PSSeminarski\Forms\obj\Debug\Forms.UserControls.UCPrikazTermina.resources

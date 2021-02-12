@@ -33,9 +33,9 @@ namespace Domain
         public string JoinTable2 => "";
         [Browsable(false)]
         public string JoinCondition2 => "";
-
+        [Browsable(false)]
         public string SelectColumnsWhere => "";
-
+        [Browsable(false)]
         public string Where => "";
 
         public List<IEntity> GetEntities(SqlDataReader reader)

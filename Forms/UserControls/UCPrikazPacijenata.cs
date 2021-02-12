@@ -14,11 +14,15 @@ namespace Forms.UserControls
 {
     public partial class UCPrikazPacijenata : UserControl
     {
-        private static List<Pacijent> osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
-        private static List<Pacijent> listaKojaSeMenja = osnovnaLista;
+        private static List<Pacijent> osnovnaLista = new List<Pacijent>();
+        private static List<Pacijent> listaKojaSeMenja = new List<Pacijent>();
+        //private static List<Pacijent> osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
+        //private static List<Pacijent> listaKojaSeMenja = osnovnaLista;
         public UCPrikazPacijenata()
         {
             InitializeComponent();
+            osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();
+            listaKojaSeMenja = osnovnaLista;
             dgvPacijenti.DataSource = Communication.Communication.Instance.PrikaziPacijente();
         }
 
@@ -39,7 +43,17 @@ namespace Forms.UserControls
 
             if (!string.IsNullOrWhiteSpace(txtBolnica.Text))
             {
-                listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Bolnica.Naziv == txtBolnica.Text).ToList();
+                string b = txtBolnica.Text;
+
+                if(b.Equals("Prva") || b.Equals("Druga") || b.Equals("Treca"))
+                {
+                    listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Bolnica.Naziv == txtBolnica.Text).ToList();
+                }
+                else
+                {
+                    MessageBox.Show("Postoje Prva, Druga i Treca bolnica, probajte neku od njih");
+                }
+                
             }
 
             if (rbDa.Checked)
@@ -107,6 +121,10 @@ namespace Forms.UserControls
                     {
                         MessageBox.Show("Pacijent ima zakazan termin, ili dijagnozu koja je postavljena");
                         KreirajUC(osnovnaLista);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Pacijent je uspesno izbrisan");
                     }
                 }
                 osnovnaLista = Communication.Communication.Instance.PrikaziPacijente();

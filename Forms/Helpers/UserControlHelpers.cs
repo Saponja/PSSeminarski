@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Forms.Helpers
 {
@@ -29,6 +30,19 @@ namespace Forms.Helpers
             thisUC.Controls.Clear();
             userControl.Parent = thisUC;
             userControl.Dock = DockStyle.Fill;
+        }
+
+        public static bool HasNumberOrSymbol(TextBox text)
+        {
+            bool hasNumOrSym = true;
+
+            if(Regex.IsMatch(text.Text, @"^[a-zA-Z]+$"))
+            {
+                hasNumOrSym = false;
+            }
+
+            return hasNumOrSym;
+            
         }
     }
 }
