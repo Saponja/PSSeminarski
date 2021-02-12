@@ -421,13 +421,13 @@ namespace BrokerDB
 
         }
 
-        public List<IEntity> GetAll(IEntity entity)
+        public List<IEntity> GetAll(IEntity entity, string cond = "")
         {
             List<IEntity> result = new List<IEntity>();
             SqlCommand command = connection.CreateCommand();
             command.Transaction = transaction;
             command.CommandText = $"select {entity.SelectColumns} from {entity.TableName} {entity.TableAlias}" +
-                $" {entity.JoinTable} {entity.JoinCondition} {entity.JoinTable2} {entity.JoinCondition2}";
+                $" {entity.JoinTable} {entity.JoinCondition} {entity.JoinTable2} {entity.JoinCondition2} {cond}";
             SqlDataReader reader = command.ExecuteReader();
             result = entity.GetEntities(reader);
             reader.Close();

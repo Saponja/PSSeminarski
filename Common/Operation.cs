@@ -24,5 +24,6 @@ namespace Common
         SledeciTermin,
         PrikazBolnica,
         Logout,
+        PrikazPacijenataWhere,
     }
 }

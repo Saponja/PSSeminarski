@@ -45,7 +45,7 @@ namespace Forms
 
         private void pacijentiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            KreirajUC(new UCPrikazPacijenata());
+            KreirajUC(new UCPrikazPacijentaNovo());
 
         }
 

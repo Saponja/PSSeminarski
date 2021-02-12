@@ -11,6 +11,7 @@ namespace SystemOperations.SOPacijent
     {
         public override void ExecuteOperation(IEntity entity)
         {
+
             Result = broker.GetAll(entity).Cast<Pacijent>().ToList();
             
         }

@@ -54,7 +54,7 @@ namespace Server
                     Korisnik korisnik = (Korisnik)request.Data;
                     response.Result = Controller.Instance.Prijava(korisnik.Username, korisnik.Password);
 
-                    if (server.Users.Any(u => u.Username == ((Korisnik)response.Result).Username))
+                    if ((Korisnik)response.Result != null && server.Users.Any(u => u.Username == ((Korisnik)response.Result).Username))
                     {
                         response.Result = new Korisnik { KorisnikId = -1 };
                     }
@@ -166,7 +166,7 @@ namespace Server
                     Korisnik loggedInKorisnik = (Korisnik)request.Data;
                     foreach (Korisnik k in server.Users)
                     {
-                        if(loggedInKorisnik.KorisnikId == k.KorisnikId)
+                        if (loggedInKorisnik.KorisnikId == k.KorisnikId)
                         {
                             server.Users.Remove(k);
                             break;
@@ -174,6 +174,9 @@ namespace Server
                     }
                     response.Result = new object { };
                     kraj = true;
+                    break;
+                case Operation.PrikazPacijenataWhere:
+                    response.Result = Controller.Instance.PrikaziPacijenteWhere(request.Data.ToString());
                     break;
                 default:
                     break;

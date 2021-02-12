@@ -48,6 +48,7 @@
     <Compile Include="SOLekar\PrikazLekaraSO.cs" />
     <Compile Include="SOPacijent\ObrisiPacijentaSO.cs" />
     <Compile Include="SOPacijent\PrikaziPacijenteSO.cs" />
+    <Compile Include="SOPacijent\PrikaziPacijenteWhereSO.cs" />
     <Compile Include="SOPacijent\SacuvajPacijentaSO.cs" />
     <Compile Include="SOPregled\PrikazPregledaSO.cs" />
     <Compile Include="SOPregled\SacuvajPregledSO.cs" />

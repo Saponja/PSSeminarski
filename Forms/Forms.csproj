@@ -82,6 +82,12 @@
     <Compile Include="UserControls\UCPrikazPacijenata.Designer.cs">
       <DependentUpon>UCPrikazPacijenata.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UCPrikazPacijentaNovo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UCPrikazPacijentaNovo.Designer.cs">
+      <DependentUpon>UCPrikazPacijentaNovo.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCPrikazPregleda.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCPrikazPacijenata.resx">
       <DependentUpon>UCPrikazPacijenata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UCPrikazPacijentaNovo.resx">
+      <DependentUpon>UCPrikazPacijentaNovo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UCPrikazPregleda.resx">
       <DependentUpon>UCPrikazPregleda.cs</DependentUpon>

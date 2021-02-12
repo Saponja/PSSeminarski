@@ -69,7 +69,32 @@ namespace Domain
 
         public List<object> GetObjectsWhere(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            List<object> objects = new List<object>();
+            while (reader.Read())
+            {
+                bool hitan = false;
+                if ((int)reader["phitan"] == 1)
+                {
+                    hitan = true;
+                }
+                objects.Add(new Pacijent
+                {
+                    PacijentID = (int)reader["pid"],
+                    Ime = (string)reader["pime"],
+                    Prezime = (string)reader["pprezime"],
+                    DaumRodjenja = (DateTime)reader["pdr"],
+                    Hitan = hitan,
+                    Anamneza = (string)reader["panam"],
+                    Bolnica = new Bolnica
+                    {
+                        SifraBolnice = (int)reader["bid"],
+                        Naziv = (string)reader["bnaziv"],
+                        Adresa = (string)reader["badresa"]
+                    }
+                });
+            }
+
+            return objects;
         }
 
         public Pacijent Self { get { return this; } }
@@ -94,7 +119,8 @@ namespace Domain
         [Browsable(false)]
         public string JoinCondition2 => "";
 
-        public string SelectColumnsWhere => "";
+        public string SelectColumnsWhere => "p.Id pid, p.Ime pime, p.Prezime pprezime, p.DatumRodjenja pdr," +
+            " p.Hitan phitan, p.Anamneza panam, b.Id bid, b.Naziv bnaziv, b.Adresa badresa";
 
         public string Where => "";
     }

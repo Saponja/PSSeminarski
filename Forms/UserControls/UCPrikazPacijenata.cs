@@ -45,7 +45,7 @@ namespace Forms.UserControls
             {
                 string b = txtBolnica.Text;
 
-                if(b.Equals("Prva") || b.Equals("Druga") || b.Equals("Treca"))
+                if (b.Equals("Prva") || b.Equals("Druga") || b.Equals("Treca"))
                 {
                     listaKojaSeMenja = listaKojaSeMenja.Where(p => p.Bolnica.Naziv == txtBolnica.Text).ToList();
                 }
@@ -53,7 +53,7 @@ namespace Forms.UserControls
                 {
                     MessageBox.Show("Postoje Prva, Druga i Treca bolnica, probajte neku od njih");
                 }
-                
+
             }
 
             if (rbDa.Checked)
@@ -92,7 +92,7 @@ namespace Forms.UserControls
 
         private void btnObrisi_Click(object sender, EventArgs e)
         {
-            if(dgvPacijenti.SelectedRows.Count < 1)
+            if (dgvPacijenti.SelectedRows.Count < 1)
             {
                 MessageBox.Show("Morate da izaberete red");
                 return;
@@ -117,7 +117,7 @@ namespace Forms.UserControls
                         brojac = brojac + 1;
                         listaKojaSeMenja.Remove(pacijent);
                     }
-                    if(!Communication.Communication.Instance.DeletePacijent(pacijent, pacijent.PacijentID))
+                    if (!Communication.Communication.Instance.DeletePacijent(pacijent, pacijent.PacijentID))
                     {
                         MessageBox.Show("Pacijent ima zakazan termin, ili dijagnozu koja je postavljena");
                         KreirajUC(osnovnaLista);
@@ -141,15 +141,15 @@ namespace Forms.UserControls
             }
             else if (result == DialogResult.No)
             {
-                
+
             }
 
-           
+
         }
 
         private void dgvPacijenti_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+
             KreirajUC(new UCKarton((Pacijent)dgvPacijenti.SelectedRows[0].DataBoundItem));
         }
     }

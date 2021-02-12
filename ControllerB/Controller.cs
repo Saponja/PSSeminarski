@@ -199,5 +199,12 @@ namespace ControllerB
             return (List<Bolnica>)so.Result;
 
         }
+
+        public List<Pacijent> PrikaziPacijenteWhere(string cond)
+        {
+            so = new PrikaziPacijenteWhereSO(cond);
+            so.ExecuteTemplate(entity: new Pacijent());
+            return (List<Pacijent>)so.Result;
+        }
     }
 }

@@ -30,6 +30,16 @@ namespace Forms.Communication
             return (List<VrstaPregleda>)response.Result;
         }
 
+        internal List<Pacijent> PrikaziPacijenteWhere(string cond)
+        {
+            Request request = new Request { Operation = Operation.PrikazPacijenataWhere, Data = cond };
+            Send(sender, request);
+            Response response = Receive(receiver);
+            //sender.Send(request);
+            //Response response = receiver.Receive();
+            return (List<Pacijent>)response.Result;
+        }
+
         internal List<Bolnica> PrikaziBolnice()
         {
             Request request = new Request { Operation = Operation.PrikazBolnica };

@@ -58,14 +58,19 @@ namespace Server
 
         internal void Stop()
         {
-            listener.Close();
-            Users.Clear();
-            foreach (ClientHandler client in clients)
+            if(listener != null)
             {
-                client.Stop();
-            }
+                listener.Close();
+                Users.Clear();
+                foreach (ClientHandler client in clients)
+                {
+                    client.Stop();
+                }
 
-            clients.Clear();
+                clients.Clear();
+
+            }
+            
 
         }
     }

@@ -74,6 +74,7 @@
             this.Controls.Add(this.btnPokerni);
             this.Name = "FrmServer";
             this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmServer_FormClosing);
             this.Load += new System.EventHandler(this.FrmServer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).EndInit();
             this.ResumeLayout(false);

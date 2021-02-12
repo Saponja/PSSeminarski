@@ -61,5 +61,10 @@ namespace Server
             btnPokerni.Enabled = true;
             btnZaustavi.Enabled = false;
         }
+
+        private void FrmServer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.Stop();
+        }
     }
 }
